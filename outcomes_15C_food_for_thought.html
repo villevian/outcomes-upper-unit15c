@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15C · Food for Thought · Outcomes Upper-Intermediate</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:      #f5f4f0;
+  --surface: #ffffff;
+  --card:    #ffffff;
+  --border:  rgba(0,0,0,0.09);
+  --gold:    #c8840a;
+  --gold2:   #e09820;
+  --teal:    #0a9e77;
+  --red:     #d63056;
+  --blue:    #1478a8;
+  --text:    #1a1a2e;
+  --muted:   #6b7280;
+  --radius:  10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.65; }
+
+#progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--teal)); width: 0%; transition: width 0.4s ease; z-index: 100; }
+
+header { background: linear-gradient(160deg, #1a1a2e 0%, #2d2a5e 100%); border-bottom: 1px solid var(--border); padding: 3rem 1.5rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.badge { display: inline-block; background: rgba(240,165,0,0.15); border: 1px solid rgba(240,165,0,0.4); color: var(--gold); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 20px; margin-bottom: 1rem; }
+header h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; line-height: 1.1; }
+header h1 em { color: var(--gold); font-style: normal; }
+.header-meta { margin-top: 0.75rem; color: var(--muted); font-size: 0.85rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+.nav-pills { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; padding: 1.25rem 1rem; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 3px; z-index: 90; }
+.nav-pill { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; padding: 0.35rem 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.nav-pill:hover { border-color: var(--gold); color: var(--gold); }
+
+main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+
+.section-heading { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem; margin-top: 0.5rem; }
+.section-heading .pill { background: var(--gold); color: #000; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 4px; }
+.section-heading h2 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; color: #fff; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; position: relative; transition: border-color 0.2s; }
+.card:hover { border-color: rgba(0,0,0,0.15); }
+.card.solved { border-left: 3px solid var(--teal); }
+.card.grammar-ref { border-left: 3px solid var(--gold); background: linear-gradient(135deg, rgba(200,132,10,0.06), #fffdf5); }
+
+.ex-head { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.5rem; }
+.ex-num { font-family: 'Fraunces', serif; font-size: 1.75rem; font-weight: 900; color: var(--gold); line-height: 1; min-width: 32px; }
+.ex-title { font-weight: 600; font-size: 0.97rem; }
+.ex-instr { color: var(--muted); font-size: 0.85rem; margin-top: 0.2rem; }
+
+.headlines { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 1rem 0; }
+@media (max-width: 560px) { .headlines { grid-template-columns: 1fr; } }
+.hl { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.7rem 0.85rem; background: #f9f8f5; border: 1px solid var(--border); border-radius: 7px; font-size: 0.87rem; }
+.hl .ltr { min-width: 22px; height: 22px; background: var(--red); color: #fff; font-size: 0.72rem; font-weight: 800; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.hl.bold { font-weight: 700; }
+.hl.italic-bold { font-style: italic; font-weight: 700; }
+
+select.pick { background: #fff; border: 1.5px solid rgba(255,255,255,0.15); color: var(--text); padding: 0.35rem 0.6rem; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.87rem; cursor: pointer; transition: border-color 0.2s; min-width: 70px; }
+select.pick:focus { outline: none; border-color: var(--gold); }
+select.pick.ok  { border-color: var(--teal); background: #edfaf4; color: #0a7a5a; }
+select.pick.err { border-color: var(--red);  background: #fff0f3; color: #b02040; }
+
+.match-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+.match-lbl { font-weight: 700; color: var(--gold2); min-width: 65px; font-size: 0.88rem; }
+.story-tag { background: var(--red); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 3px; min-width: 58px; text-align: center; }
+
+.fill-item { border: 1px solid var(--border); border-radius: 7px; padding: 0.9rem 1rem; margin-bottom: 0.7rem; background: #fafaf8; }
+.fill-orig { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.5rem; }
+.fill-line { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.9rem; }
+.fill-input { background: #fff; border: 1.5px solid rgba(0,0,0,0.15); color: var(--text); padding: 0.3rem 0.6rem; border-radius: 5px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; min-width: 150px; transition: border-color 0.2s; }
+.fill-input:focus { outline: none; border-color: var(--gold); }
+.fill-input.ok  { border-color: var(--teal); background: #edfaf4; }
+.fill-input.err { border-color: var(--red);  background: #fff0f3; }
+.kw { margin-left: auto; background: var(--blue); color: #fff; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 3px; }
+
+textarea.notes { width: 100%; background: #fff; border: 1.5px solid var(--border); color: var(--text); border-radius: 6px; padding: 0.5rem 0.75rem; font-family: 'DM Sans', sans-serif; font-size: 0.87rem; resize: vertical; min-height: 44px; transition: border-color 0.2s; }
+textarea.notes:focus { outline: none; border-color: var(--gold); }
+
+.g-example { margin: 0.45rem 0; font-style: italic; color: #3a3a5c; }
+.g-example b { font-style: normal; color: var(--text); }
+
+.pat-table { width: 100%; border-collapse: collapse; margin: 0.75rem 0 1rem; font-size: 0.88rem; }
+.pat-table td, .pat-table th { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.pat-table th { color: var(--muted); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.05em; }
+.pat-num { color: var(--gold); font-weight: 700; }
+.pat-code { font-family: monospace; color: var(--gold2); font-size: 0.85rem; }
+
+.verb-bank { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.75rem 0; }
+.v-chip { background: #f5f4f0; border: 1px solid var(--border); color: var(--text); padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.84rem; cursor: pointer; transition: all 0.15s; user-select: none; }
+.v-chip:hover { border-color: var(--gold); color: var(--gold); }
+.v-chip.picked { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
+
+.pat-row { padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; transition: background 0.15s; }
+.pat-row:hover { background: rgba(200,132,10,0.05); }
+.pat-row .pn { color: var(--gold); font-weight: 700; min-width: 20px; font-size: 0.88rem; }
+.pat-row .pt { font-family: monospace; color: var(--gold2); font-size: 0.82rem; min-width: 180px; }
+.pat-row .verbs-here { flex: 1; font-size: 0.85rem; color: #555577; min-height: 20px; }
+.pat-row.ok  { background: #edfaf4; border-color: var(--teal); }
+.pat-row.err { background: #fff0f3; border-color: var(--red); }
+
+.speak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-top: 0.75rem; }
+@media (max-width: 560px) { .speak-grid { grid-template-columns: 1fr; } }
+.speak-card { background: #fafaf8; border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 0 7px 7px 0; padding: 0.65rem 0.9rem; font-size: 0.87rem; color: #2a2a3e; }
+.speak-card b { color: var(--gold); }
+
+.audio-stub { display: flex; align-items: center; gap: 0.75rem; background: #f9f7f2; border: 1px dashed rgba(0,0,0,0.15); border-radius: 7px; padding: 0.7rem 1rem; margin: 0.75rem 0; color: var(--muted); font-size: 0.85rem; }
+.audio-btn { width: 34px; height: 34px; background: var(--red); color: #fff; border: none; border-radius: 50%; font-size: 0.9rem; cursor: default; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+.feedback { margin-top: 0.85rem; border-radius: 7px; padding: 0.85rem 1.1rem; display: none; background: #fff8e8; border: 1px solid rgba(200,132,10,0.3); }
+.feedback.show { display: flex; align-items: center; gap: 1rem; }
+.fb-score { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+.fb-msg { font-size: 0.88rem; color: #2a2a3e; }
+.fb-msg strong { color: var(--text); }
+
+.btn { background: var(--gold); color: #000; border: none; padding: 0.55rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin-top: 0.85rem; }
+.btn:hover { background: var(--gold2); transform: translateY(-1px); }
+.btn.ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); margin-left: 0.5rem; }
+.btn.ghost:hover { border-color: var(--gold); color: var(--gold); transform: none; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0 2rem; }
+
+.hint-box { background: #f0fdf8; border: 1px solid rgba(10,158,119,0.25); border-radius: 7px; padding: 0.75rem 1rem; font-size: 0.84rem; color: #1a5a45; margin-top: 0.85rem; display: none; }
+.hint-box.show { display: block; }
+
+.q-list { list-style: none; }
+.q-list li { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.q-list li:last-child { border-bottom: none; }
+.q-list li .qn { color: var(--gold); font-weight: 700; min-width: 22px; }
+
+  /* ─── AUDIO PLAYER ──────────────────────────────── */
+  .audio-player { margin: 0.75rem 0; }
+  .ap-inner {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: linear-gradient(135deg, #fff8e8, #f0fdf8);
+    border: 1px solid rgba(200,132,10,0.25);
+    border-radius: 10px; padding: 0.75rem 1rem;
+  }
+  .ap-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--gold); color: #000; border: none;
+    font-size: 1rem; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-weight: 700;
+  }
+  .ap-btn:hover { background: var(--gold2); transform: scale(1.05); }
+  .ap-track { flex: 1; display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+  .ap-time { font-size: 0.78rem; color: var(--muted); min-width: 34px; font-family: monospace; }
+  .ap-seek {
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 4px; border-radius: 2px; background: rgba(0,0,0,0.1);
+    outline: none; cursor: pointer;
+  }
+  .ap-seek::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--gold); cursor: pointer;
+  }
+  .ap-label { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+
+
+  /* ─── AUDIO SCRIPT TOGGLE ───────────────────────── */
+  .script-toggle {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    font-weight: 600; color: var(--text); padding: 0;
+    text-align: left; transition: color 0.2s;
+  }
+  .script-toggle:hover { color: var(--gold); }
+  .toggle-arrow { margin-left: auto; font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
+  .toggle-arrow.open { transform: rotate(180deg); }
+  #script-body { margin-top: 1rem; }
+  .script-story {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .script-num {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .script-story p { font-size: 0.88rem; color: #3a3a5c; line-height: 1.7; }
+
+
+  /* ─── SUBMIT SECTION ────────────────────────────── */
+  .submit-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2a5e 100%);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-top: 2rem;
+    color: #e6edf3;
+  }
+  .submit-section h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .submit-section p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.25rem;
+  }
+  .submit-name-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .submit-name-row input {
+    flex: 1;
+    min-width: 180px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: #fff;
+    border-radius: 7px;
+    padding: 0.5rem 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+  .submit-name-row input::placeholder { color: rgba(255,255,255,0.35); }
+  .submit-name-row input:focus { outline: none; border-color: var(--gold); }
+  .btn-submit {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 0.7rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .btn-submit:hover { background: var(--gold2); transform: translateY(-2px); }
+
+  /* ── result box */
+  #submit-result {
+    display: none;
+    margin-top: 1.25rem;
+  }
+  #submit-result.show { display: block; }
+  .result-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 1.25rem 1.4rem;
+    font-size: 0.84rem;
+    line-height: 1.8;
+    color: #e6edf3;
+    white-space: pre-wrap;
+    font-family: 'DM Sans', sans-serif;
+    max-height: 480px;
+    overflow-y: auto;
+  }
+  .result-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+    flex-wrap: wrap;
+  }
+  .btn-copy {
+    background: var(--teal);
+    color: #000;
+    border: none;
+    padding: 0.55rem 1.3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-copy:hover { opacity: 0.85; }
+  .btn-copy.copied { background: #ccc; color: #333; }
+  .result-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.3);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gold2);
+    margin-top: 0.85rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header>
+  <div class="badge">Outcomes Upper-Intermediate · Unit 15C</div>
+  <h1>Food for <em>Thought</em></h1>
+  <div class="header-meta">
+    <span>📻 Listening</span>
+    <span>📖 Grammar: Reporting Verbs</span>
+    <span>💬 Speaking</span>
+  </div>
+</header>
+
+<div class="nav-pills">
+  <a class="nav-pill" href="#sec-listening">Listening</a>
+  <a class="nav-pill" href="#ex2">Match stories</a>
+  <a class="nav-pill" href="#ex3">Phrases</a>
+  <a class="nav-pill" href="#ex5">Comprehension Q</a>
+  <a class="nav-pill" href="#sec-grammar">Grammar</a>
+  <a class="nav-pill" href="#ex7">Patterns</a>
+  <a class="nav-pill" href="#ex8">Verb bank</a>
+  <a class="nav-pill" href="#ex9">Transform</a>
+  <a class="nav-pill" href="#sec-speaking">Speaking</a>
+</div>
+
+<main>
+
+<!-- ══════ LISTENING ══════ -->
+<div id="sec-listening">
+  <div class="section-heading">
+    <span class="pill">📻 Listening</span>
+    <h2>Food in the News</h2>
+  </div>
+</div>
+
+<!-- EX 1 -->
+<div class="card" id="ex1">
+  <div class="ex-head">
+    <div class="ex-num">1</div>
+    <div class="ex-body">
+      <div class="ex-title">Look at the news headlines and discuss the questions.</div>
+      <div class="ex-instr">Work in pairs.</div>
+    </div>
+  </div>
+  <div class="headlines">
+    <div class="hl"><div class="ltr">a</div><span>Fast-food chain's ice cream creates a stir on social media</span></div>
+    <div class="hl bold"><div class="ltr">b</div><span>Research suggests gut bacteria offers key to obesity crisis</span></div>
+    <div class="hl bold"><div class="ltr">c</div><span>Burger business and football club win climate action awards</span></div>
+    <div class="hl"><div class="ltr">d</div><span>Report shows meat industry donates millions to political parties</span></div>
+    <div class="hl bold"><div class="ltr">e</div><span>SUPERMARKET PULLS AD PROMOTING VEGANISM</span></div>
+    <div class="hl"><div class="ltr">f</div><span>Campaigners Demand Action After Report Into Food Waste</span></div>
+    <div class="hl bold"><div class="ltr">g</div><span>'SCALLOP DISCO' LIGHTS THE WAY FORWARD</span></div>
+    <div class="hl italic-bold"><div class="ltr">h</div><span>Overfishing Could Wipe Out Fish Stocks by 2048</span></div>
+  </div>
+  <ul class="q-list">
+    <li><span class="qn">1</span><span>What do you think of each headline?</span></li>
+    <li><span class="qn">2</span><span>Which stories would you want to read? Why?</span></li>
+    <li><span class="qn">3</span><span>Which would you include on a front page? Try to agree.</span></li>
+  </ul>
+</div>
+
+<!-- EX 2 -->
+<div class="card" id="ex2">
+  <div class="ex-head">
+    <div class="ex-num">2</div>
+    <div class="ex-body">
+      <div class="ex-title">Listen to four news stories about food. Match each story (1–4) with one of the headlines from Exercise 1 (a–h).</div>
+    </div>
+  </div>
+  <div class="audio-player">
+    <audio id="main-audio" preload="auto">
+      <source src="" type="audio/mpeg">
+    </audio>
+    <div class="ap-inner">
+      <button class="ap-btn" id="ap-play" onclick="togglePlay()">▶</button>
+      <div class="ap-track">
+        <div class="ap-time" id="ap-cur">0:00</div>
+        <input type="range" class="ap-seek" id="ap-seek" value="0" min="0" step="0.1" oninput="seekAudio(this.value)">
+        <div class="ap-time" id="ap-dur">0:00</div>
+      </div>
+      <div class="ap-label">Unit 15C · Stories 1–4</div>
+    </div>
+  </div>
+  <div class="match-row"><span class="match-lbl">Story 1 →</span>
+    <select class="pick" id="m1" data-ans="f"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select>
+  </div>
+  <div class="match-row"><span class="match-lbl">Story 2 →</span>
+    <select class="pick" id="m2" data-ans="c"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select>
+  </div>
+  <div class="match-row"><span class="match-lbl">Story 3 →</span>
+    <select class="pick" id="m3" data-ans="g"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select>
+  </div>
+  <div class="match-row"><span class="match-lbl">Story 4 →</span>
+    <select class="pick" id="m4" data-ans="a"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select>
+  </div>
+  <button class="btn" onclick="checkSelects('ex2',['m1','m2','m3','m4'])">Check</button>
+  <button class="btn ghost" onclick="resetSelects('ex2',['m1','m2','m3','m4'])">Reset</button>
+  <div class="feedback" id="fb-ex2"></div>
+</div>
+
+<!-- EX 3 -->
+<div class="card" id="ex3">
+  <div class="ex-head">
+    <div class="ex-num">3</div>
+    <div class="ex-body">
+      <div class="ex-title">Work in pairs. Match the phrases to the correct story and discuss why the speakers used these words.</div>
+    </div>
+  </div>
+  <div style="margin:0.9rem 0">
+    <div class="match-row" style="margin-bottom:0.75rem">
+      <span class="story-tag">Story 1</span>
+      <select class="pick" id="ph1a" data-ans="suffering from severe hunger"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+      <select class="pick" id="ph1b" data-ans="promote good habits"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+    </div>
+    <div class="match-row" style="margin-bottom:0.75rem">
+      <span class="story-tag">Story 2</span>
+      <select class="pick" id="ph2a" data-ans="pioneered plant-based burgers"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+      <select class="pick" id="ph2b" data-ans="offset the carbon from"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+    </div>
+    <div class="match-row" style="margin-bottom:0.75rem">
+      <span class="story-tag">Story 3</span>
+      <select class="pick" id="ph3a" data-ans="with small fish as bait"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+      <select class="pick" id="ph3b" data-ans="scrape the seabed"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+    </div>
+    <div class="match-row">
+      <span class="story-tag">Story 4</span>
+      <select class="pick" id="ph4a" data-ans="a crime against humanity"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+      <select class="pick" id="ph4b" data-ans="possess a particular gene"><option value="">phrase…</option><option>suffering from severe hunger</option><option>pioneered plant-based burgers</option><option>with small fish as bait</option><option>a crime against humanity</option><option>possess a particular gene</option><option>scrape the seabed</option><option>offset the carbon from</option><option>promote good habits</option></select>
+    </div>
+  </div>
+  <button class="btn" onclick="checkSelects('ex3',['ph1a','ph1b','ph2a','ph2b','ph3a','ph3b','ph4a','ph4b'])">Check</button>
+  <button class="btn ghost" onclick="resetSelects('ex3',['ph1a','ph1b','ph2a','ph2b','ph3a','ph3b','ph4a','ph4b'])">Reset</button>
+  <div class="feedback" id="fb-ex3"></div>
+</div>
+
+<!-- EX 4 -->
+<div class="card" id="ex4">
+  <div class="ex-head">
+    <div class="ex-num">4</div>
+    <div class="ex-body">
+      <div class="ex-title">Listen again and take notes about other key information in each story.</div>
+    </div>
+  </div>
+  <div class="audio-player">
+    <audio id="main-audio2" preload="auto">
+      <source src="" type="audio/mpeg">
+    </audio>
+    <div class="ap-inner">
+      <button class="ap-btn" id="ap-play2" onclick="togglePlay2()">▶</button>
+      <div class="ap-track">
+        <div class="ap-time" id="ap-cur2">0:00</div>
+        <input type="range" class="ap-seek" id="ap-seek2" value="0" min="0" step="0.1" oninput="seekAudio2(this.value)">
+        <div class="ap-time" id="ap-dur2">0:00</div>
+      </div>
+      <div class="ap-label">Unit 15C · Listen again</div>
+    </div>
+  </div>
+  <div style="display:grid;gap:0.6rem;margin-top:0.5rem">
+    <div><div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem">Story 1 — Food waste</div><textarea class="notes" placeholder="Your notes…" rows="2"></textarea></div>
+    <div><div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem">Story 2 — Climate award</div><textarea class="notes" placeholder="Your notes…" rows="2"></textarea></div>
+    <div><div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem">Story 3 — Scallop disco</div><textarea class="notes" placeholder="Your notes…" rows="2"></textarea></div>
+    <div><div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.3rem">Story 4 — Ice cream</div><textarea class="notes" placeholder="Your notes…" rows="2"></textarea></div>
+  </div>
+</div>
+
+<!-- EX 5 -->
+<div class="card" id="ex5">
+  <div class="ex-head">
+    <div class="ex-num">5</div>
+    <div class="ex-body">
+      <div class="ex-title">Using your notes, how many of these questions can you answer?</div>
+      <div class="ex-instr">Write your answers, then click "Show answers" to check.</div>
+    </div>
+  </div>
+  <div style="display:grid;gap:0.65rem;margin-top:0.75rem">
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">1</span>How much food is wasted worldwide?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">2</span>Which countries have anti-waste laws?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">3</span>What is special about the football team?</div><textarea class="notes" placeholder="Your answer…" rows="2"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">4</span>How much food is wasted at Max's?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">5</span>What was accidental about the fishing discovery?</div><textarea class="notes" placeholder="Your answer…" rows="2"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">6</span>How many eyes do scallops have?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">7</span>What flavour sauce was added to the ice cream?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+    <div><div style="font-size:0.88rem;font-weight:600;margin-bottom:0.3rem"><span style="color:var(--gold);margin-right:0.4rem">8</span>How long is the ice cream on sale for?</div><textarea class="notes" placeholder="Your answer…" rows="1"></textarea></div>
+  </div>
+  <button class="btn" onclick="toggleHint('hint5')">Show model answers</button>
+  <div class="hint-box" id="hint5">
+    <strong style="color:var(--teal)">Model answers:</strong><br><br>
+    <b>1</b> 923 million tonnes goes uneaten every year.<br>
+    <b>2</b> South Korea and France.<br>
+    <b>3</b> All players eat a vegan diet; the kit is made from recycled coffee grounds.<br>
+    <b>4</b> Just 1%.<br>
+    <b>5</b> Researchers were testing lobster traps — they failed to attract crabs but caught large numbers of scallops instead.<br>
+    <b>6</b> Around two hundred tiny reflective eyes.<br>
+    <b>7</b> Coriander and lemon.<br>
+    <b>8</b> A few days only.
+  </div>
+</div>
+
+<!-- EX 6 -->
+<div class="card" id="ex6">
+  <div class="ex-head">
+    <div class="ex-num">6</div>
+    <div class="ex-body">
+      <div class="ex-title">Work in pairs. Discuss the questions.</div>
+    </div>
+  </div>
+  <div class="speak-grid">
+    <div class="speak-card"><b>1</b> Which story would you most likely tell someone about? Who? Why?</div>
+    <div class="speak-card"><b>2</b> Are there anti-food waste laws in your country? Are they strict enough?</div>
+    <div class="speak-card"><b>3</b> Are there foods you don't eat for environmental reasons?</div>
+    <div class="speak-card"><b>4</b> Have you seen any interesting marketing cause a debate on social media?</div>
+    <div class="speak-card"><b>5</b> What food companies do you like / not like? Why?</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════ GRAMMAR ══════ -->
+<div id="sec-grammar">
+  <div class="section-heading">
+    <span class="pill">📖 Grammar</span>
+    <h2>Patterns after Reporting Verbs</h2>
+  </div>
+</div>
+
+<div class="card grammar-ref">
+  <p style="font-size:0.87rem;color:var(--muted);margin-bottom:0.85rem">When we report what people said, we sometimes use a verb to more or less report direct speech (<em>say, state, claim, announce</em>) and sometimes a verb to summarize the main idea (<em>promise, accuse, recommend</em>, etc.). These verbs follow different patterns.</p>
+  <div class="g-example">It <b>promises</b> to make 50% of all sales plant-based.</div>
+  <div class="g-example">The report also <b>urges</b> governments and businesses to do more.</div>
+  <div class="g-example">Campaigners <b>accused</b> the government here of failing.</div>
+  <div class="g-example">Some <b>claimed</b> the dessert was a fantastic blend.</div>
+  <div class="g-example">Climate experts <b>recommend</b> moving to a vegetarian diet.</div>
+</div>
+
+<!-- EX 7 -->
+<div class="card" id="ex7">
+  <div class="ex-head">
+    <div class="ex-num">7</div>
+    <div class="ex-body">
+      <div class="ex-title">Match the bold verbs from the Grammar box with patterns 1–6. Do any verbs fit more than one pattern?</div>
+    </div>
+  </div>
+  <table class="pat-table">
+    <tr><th>#</th><th>Pattern</th></tr>
+    <tr><td class="pat-num">1</td><td class="pat-code">verb + to + verb</td></tr>
+    <tr><td class="pat-num">2</td><td class="pat-code">verb + person + to + verb</td></tr>
+    <tr><td class="pat-num">3</td><td class="pat-code">verb + -ing</td></tr>
+    <tr><td class="pat-num">4</td><td class="pat-code">verb + preposition + -ing</td></tr>
+    <tr><td class="pat-num">5</td><td class="pat-code">verb + person + preposition + -ing</td></tr>
+    <tr><td class="pat-num">6</td><td class="pat-code">verb + (that) clause</td></tr>
+  </table>
+  <p style="font-size:0.87rem;font-weight:600;margin-bottom:0.65rem">Select the correct pattern for each verb:</p>
+  <div style="display:grid;gap:0.55rem">
+    <div class="match-row"><span style="min-width:100px;font-weight:600;font-style:italic;font-size:0.9rem">promises</span>
+      <select class="pick" id="v1" data-ans="1"><option value="">pattern?</option><option value="1">1 — verb + to</option><option value="2">2 — verb+person+to</option><option value="3">3 — verb+-ing</option><option value="4">4 — verb+prep+-ing</option><option value="5">5 — verb+person+prep+-ing</option><option value="6">6 — that clause</option></select>
+    </div>
+    <div class="match-row"><span style="min-width:100px;font-weight:600;font-style:italic;font-size:0.9rem">urges</span>
+      <select class="pick" id="v2" data-ans="2"><option value="">pattern?</option><option value="1">1 — verb + to</option><option value="2">2 — verb+person+to</option><option value="3">3 — verb+-ing</option><option value="4">4 — verb+prep+-ing</option><option value="5">5 — verb+person+prep+-ing</option><option value="6">6 — that clause</option></select>
+    </div>
+    <div class="match-row"><span style="min-width:100px;font-weight:600;font-style:italic;font-size:0.9rem">recommend</span>
+      <select class="pick" id="v3" data-ans="3"><option value="">pattern?</option><option value="1">1 — verb + to</option><option value="2">2 — verb+person+to</option><option value="3">3 — verb+-ing</option><option value="4">4 — verb+prep+-ing</option><option value="5">5 — verb+person+prep+-ing</option><option value="6">6 — that clause</option></select>
+    </div>
+    <div class="match-row"><span style="min-width:100px;font-weight:600;font-style:italic;font-size:0.9rem">accused</span>
+      <select class="pick" id="v4" data-ans="5"><option value="">pattern?</option><option value="1">1 — verb + to</option><option value="2">2 — verb+person+to</option><option value="3">3 — verb+-ing</option><option value="4">4 — verb+prep+-ing</option><option value="5">5 — verb+person+prep+-ing</option><option value="6">6 — that clause</option></select>
+    </div>
+    <div class="match-row"><span style="min-width:100px;font-weight:600;font-style:italic;font-size:0.9rem">claimed</span>
+      <select class="pick" id="v5" data-ans="6"><option value="">pattern?</option><option value="1">1 — verb + to</option><option value="2">2 — verb+person+to</option><option value="3">3 — verb+-ing</option><option value="4">4 — verb+prep+-ing</option><option value="5">5 — verb+person+prep+-ing</option><option value="6">6 — that clause</option></select>
+    </div>
+  </div>
+  <button class="btn" onclick="checkSelects('ex7',['v1','v2','v3','v4','v5'])">Check</button>
+  <button class="btn ghost" onclick="resetSelects('ex7',['v1','v2','v3','v4','v5'])">Reset</button>
+  <div class="feedback" id="fb-ex7"></div>
+  <div class="hint-box" id="hint7" style="margin-top:0.6rem">
+    <strong style="color:var(--teal)">Full answer key:</strong><br><br>
+    1 — <em>promises</em> (to make) &nbsp;·&nbsp; 2 — <em>urges</em> (governments and businesses to do)<br>
+    3 — <em>recommend</em> (moving) &nbsp;·&nbsp; 5 — <em>accused</em> (the government of failing)<br>
+    6 — <em>claimed</em> (that the dessert was a fantastic blend)
+  </div>
+</div>
+
+<!-- EX 8 -->
+<div class="card" id="ex8">
+  <div class="ex-head">
+    <div class="ex-num">8</div>
+    <div class="ex-body">
+      <div class="ex-title">Match these verbs with one or more of the patterns in Exercise 7.</div>
+      <div class="ex-instr">① Click a verb to select it (turns gold). ② Click the pattern row to place it there. A verb can belong to multiple patterns.</div>
+    </div>
+  </div>
+  <div class="verb-bank" id="vbank">
+    <div class="v-chip" onclick="selectVerb(this)">advise</div>
+    <div class="v-chip" onclick="selectVerb(this)">agree</div>
+    <div class="v-chip" onclick="selectVerb(this)">apologize</div>
+    <div class="v-chip" onclick="selectVerb(this)">confess</div>
+    <div class="v-chip" onclick="selectVerb(this)">consider</div>
+    <div class="v-chip" onclick="selectVerb(this)">deny</div>
+    <div class="v-chip" onclick="selectVerb(this)">encourage</div>
+    <div class="v-chip" onclick="selectVerb(this)">imagine</div>
+    <div class="v-chip" onclick="selectVerb(this)">insist</div>
+    <div class="v-chip" onclick="selectVerb(this)">intend</div>
+    <div class="v-chip" onclick="selectVerb(this)">refuse</div>
+    <div class="v-chip" onclick="selectVerb(this)">remind</div>
+    <div class="v-chip" onclick="selectVerb(this)">suggest</div>
+    <div class="v-chip" onclick="selectVerb(this)">threaten</div>
+    <div class="v-chip" onclick="selectVerb(this)">warn</div>
+    <div class="v-chip" onclick="selectVerb(this)">worry</div>
+  </div>
+  <div style="margin-top:0.75rem" id="pat-rows">
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="1"><span class="pn">1</span><span class="pt">verb + to + verb</span><span class="verbs-here" id="pv1">tap to place verb here</span></div>
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="2"><span class="pn">2</span><span class="pt">verb + person + to + verb</span><span class="verbs-here" id="pv2">tap to place verb here</span></div>
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="3"><span class="pn">3</span><span class="pt">verb + -ing</span><span class="verbs-here" id="pv3">tap to place verb here</span></div>
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="4"><span class="pn">4</span><span class="pt">verb + prep + -ing</span><span class="verbs-here" id="pv4">tap to place verb here</span></div>
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="5"><span class="pn">5</span><span class="pt">verb + person + prep + -ing</span><span class="verbs-here" id="pv5">tap to place verb here</span></div>
+    <div class="pat-row" onclick="dropVerb(this)" data-pat="6"><span class="pn">6</span><span class="pt">verb + (that) clause</span><span class="verbs-here" id="pv6">tap to place verb here</span></div>
+  </div>
+  <button class="btn" onclick="checkEx8()">Check answers</button>
+  <button class="btn ghost" onclick="resetEx8()">Reset</button>
+  <div class="feedback" id="fb-ex8"></div>
+  <div class="hint-box" id="hint8">
+    <strong style="color:var(--teal)">Answer key:</strong><br><br>
+    <b>1</b> agree, intend, refuse, threaten<br>
+    <b>2</b> advise, encourage, remind, warn<br>
+    <b>3</b> consider, deny, imagine, suggest<br>
+    <b>4</b> apologize <em>for</em>, confess <em>to</em>, insist <em>on</em>, worry <em>about</em><br>
+    <b>5</b> advise, threaten, warn<br>
+    <b>6</b> confess, deny, imagine, insist, suggest, threaten, warn, worry
+  </div>
+</div>
+
+<!-- EX 9 -->
+<div class="card" id="ex9">
+  <div class="ex-head">
+    <div class="ex-num">9</div>
+    <div class="ex-body">
+      <div class="ex-title">Complete the second sentence so it has a similar meaning. Use 2–5 words including the bold word.</div>
+    </div>
+  </div>
+  <div style="margin-top:0.75rem">
+    <div class="fill-item">
+      <div class="fill-orig">We strongly recommend that the company rethinks its policy.</div>
+      <div class="fill-line">We would <input class="fill-input" id="f1" data-ans="urge the company to rethink" placeholder="2–5 words"> its policy on this matter. <span class="kw">URGE</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">The government have accepted an offer for the farmland from a private company.</div>
+      <div class="fill-line">The government <input class="fill-input" id="f2" data-ans="agreed to sell|has agreed to sell" placeholder="2–5 words"> the farmland to a private company. <span class="kw">AGREED</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">My son is three now and he never wants to eat anything healthy.</div>
+      <div class="fill-line">My son just totally <input class="fill-input" id="f3" data-ans="refuses to eat" placeholder="2–5 words"> anything healthy at all. <span class="kw">REFUSES</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">My grandmother always makes her special apple pie every time we go and visit her.</div>
+      <div class="fill-line">My grandmother always <input class="fill-input" id="f4" data-ans="insists on making" placeholder="2–5 words"> her special apple pie every time we go and visit her. <span class="kw">INSISTS</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">A friend of mine said we should try this new Vietnamese place near here.</div>
+      <div class="fill-line">A friend of mine <input class="fill-input" id="f5" data-ans="suggested trying" placeholder="2–5 words"> this new Vietnamese place near here. <span class="kw">SUGGESTED</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">Given the cod shortages, fish and chip restaurants are suggesting that customers try alternatives.</div>
+      <div class="fill-line">Given the cod shortages, fish and chip restaurants are <input class="fill-input" id="f6" data-ans="encouraging customers to try" placeholder="2–5 words"> alternatives. <span class="kw">ENCOURAGING</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">The company has expressed regret after it was caught selling contaminated meat.</div>
+      <div class="fill-line">The company <input class="fill-input" id="f7" data-ans="apologized for selling|has apologized for selling" placeholder="2–5 words"> contaminated meat. <span class="kw">APOLOGIZED</span></div>
+    </div>
+    <div class="fill-item">
+      <div class="fill-orig">The firm rejected all accusations of involvement in the scandal.</div>
+      <div class="fill-line">The firm categorically <input class="fill-input" id="f8" data-ans="denied being" placeholder="2–5 words"> involved in the scandal. <span class="kw">DENIED</span></div>
+    </div>
+  </div>
+  <button class="btn" onclick="checkFill()">Check answers</button>
+  <button class="btn ghost" onclick="resetFill()">Reset</button>
+  <div class="feedback" id="fb-ex9"></div>
+  <div class="hint-box" id="hint9">
+    <strong style="color:var(--teal)">Answers:</strong><br><br>
+    1 urge the company to rethink &nbsp;·&nbsp; 2 (has) agreed to sell<br>
+    3 refuses to eat &nbsp;·&nbsp; 4 insists on making &nbsp;·&nbsp; 5 suggested trying<br>
+    6 encouraging customers to try &nbsp;·&nbsp; 7 (has) apologized for selling &nbsp;·&nbsp; 8 denied being
+  </div>
+</div>
+
+<!-- EX 10 -->
+<div class="card" id="ex10">
+  <div class="ex-head">
+    <div class="ex-num">10</div>
+    <div class="ex-body">
+      <div class="ex-title">Work in groups. Tell a partner examples of things that…</div>
+    </div>
+  </div>
+  <div class="speak-grid" style="margin-top:0.75rem">
+    <div class="speak-card">people are currently being <b>urged</b> to do – or not do</div>
+    <div class="speak-card">someone famous has been <b>accused</b> of doing recently</div>
+    <div class="speak-card">you've <b>promised</b> to do recently</div>
+    <div class="speak-card">you've had to <b>apologize</b> for doing recently</div>
+    <div class="speak-card">someone famous has been <b>criticized</b> for recently</div>
+    <div class="speak-card">you have <b>refused</b> to do</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════ SPEAKING ══════ -->
+<div id="sec-speaking">
+  <div class="section-heading">
+    <span class="pill">💬 Speaking</span>
+    <h2>Discussion Topics</h2>
+  </div>
+</div>
+<div class="card">
+  <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.85rem">Choose a topic. Use reporting verbs from this lesson in your answers.</p>
+  <div class="speak-grid">
+    <div class="speak-card"><b>Food waste</b> — Is food waste a problem where you live? What should governments do?</div>
+    <div class="speak-card"><b>Plant-based food</b> — Would you eat less meat for environmental reasons? Why / why not?</div>
+    <div class="speak-card"><b>Social media + food</b> — Have you seen food go viral online? What was your reaction?</div>
+    <div class="speak-card"><b>Sustainability</b> — What should food companies be doing to reduce their environmental impact?</div>
+    <div class="speak-card"><b>Fishing</b> — How concerned are you about overfishing? What solutions exist?</div>
+    <div class="speak-card"><b>Marketing</b> — Describe a food ad you liked or disliked. Explain your reaction.</div>
+  </div>
+</div>
+
+
+<!-- AUDIO SCRIPT TOGGLE -->
+<div class="card" id="audio-script-card" style="margin-top:0.5rem">
+  <button class="script-toggle" onclick="toggleScript()" id="script-btn">
+    <span>📄</span> Audio Script
+    <span class="toggle-arrow" id="script-arrow">▼</span>
+  </button>
+  <div id="script-body" style="display:none">
+    <div class="script-story">
+      <div class="script-num">Story 1 → headline f</div>
+      <p>A UN report found that an estimated 923 million tonnes of food produced each year goes uneaten. The report also urges governments and businesses to do more to reduce waste at a time when 690 million people are still suffering from severe hunger and there are increasing concerns about the effect of farming on the climate and biodiversity. Campaigners accused the government here of failing to take the issue seriously and demanded that the government introduce anti-waste laws like those found elsewhere. South Korea has banned all food going to dumps and the capital Seoul has reduced waste by 10% through special bins that weigh the food and charge citizens for what they throw away. The food is then recycled as compost and animal feed. France also has a law which requires grocery stores to donate all their unsold fresh food to food banks and charities. A government spokesman defended its record and said the best way forward was to promote good habits through education rather than legislation.</p>
+    </div>
+    <div class="script-story">
+      <div class="script-num">Story 2 → headline c</div>
+      <p>The Swedish fast food chain, Max Burgers, has won an award for introducing the first climate-positive menu. The company, which operates across Europe, has also reduced food waste to just 1%. While we may be used to dishes being labelled for allergies and calories, Max Burgers rates all its dishes for their carbon footprint from farm to plate. It pioneered plant-based burgers over a decade ago and promises to make 50% of all sales plant-based. It offsets the carbon from its meat dishes by planting trees. Meat production is a major source of greenhouse gases and climate experts recommend moving to a vegetarian diet as a key way to reduce emissions. Another of the award winners was Forest Green Rovers in the UK, known as the greenest professional sports team in the world. All players eat a vegan diet and the team's kit is made from recycled coffee grounds.</p>
+    </div>
+    <div class="script-story">
+      <div class="script-num">Story 3 → headline g</div>
+      <p>Scientists have discovered quite by accident a new way of catching scallops that could prevent major damage to the seabed. The researchers had been investigating whether lobsters and crabs could be caught using small lights, rather than with small fish as bait. At the end of the experiment, they found that the lobster baskets had failed to attract any crabs, but they did contain large numbers of scallops. Scallops have around two hundred tiny reflective eyes, which may explain why they were attracted to the disco lights. The discovery could be a huge breakthrough in sustainable fishing. While some scallops are collected by divers, the most common method is to use heavy machines that scrape the seabed, killing much of the other sea life and leaving long-lasting damage.</p>
+    </div>
+    <div class="script-story" style="border-bottom:none">
+      <div class="script-num">Story 4 → headline a</div>
+      <p>A major fast food chain has caused something of a Twitter storm in China with the latest limited edition of its popular dessert. The company has added a sprinkling of dried coriander crumbs and a coriander and lemon sauce to its famous soft vanilla ice cream. Some claimed the dessert was a fantastic blend of sweet and spicy, while others suggested it was a crime against humanity and said just the idea of it made them want to throw up. The unusual combination is not the only cause of the debate. Scientists have shown that some people possess a particular gene which means they experience coriander as having a soapy taste. Fortunately, for those people the new flavour is only on sale for a few days.</p>
+    </div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ══════ SUBMIT ══════ -->
+<div class="submit-section">
+  <h3>📬 Submit to Teacher</h3>
+  <p>Fill in your name, click Generate — then copy the text and send it to your teacher.</p>
+
+  <div class="submit-name-row">
+    <input type="text" id="student-name" placeholder="Your name (e.g. Anna)">
+    <input type="text" id="student-date" placeholder="Date (e.g. 04.03.2026)">
+  </div>
+
+  <button class="btn-submit" onclick="generateSubmit()">⚡ Generate answers</button>
+
+  <div id="submit-result">
+    <div class="result-score" id="total-score"></div>
+    <div class="result-box" id="result-text"></div>
+    <div class="result-actions">
+      <button class="btn-copy" id="copy-btn" onclick="copyResult()">📋 Copy all</button>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── PROGRESS BAR
+function updateProgress() {
+  const all = document.querySelectorAll('select.pick, .fill-input');
+  const done = [...all].filter(e => e.value && e.value !== '').length;
+  document.getElementById('progress-bar').style.width = Math.round(done/all.length*100) + '%';
+}
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+
+// ── CHECK SELECTS
+function checkSelects(cardId, ids) {
+  let correct = 0;
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('ok','err');
+    if (!el.value) return;
+    (el.value === el.dataset.ans) ? (el.classList.add('ok'), correct++) : el.classList.add('err');
+  });
+  showFb('fb-' + cardId, correct, ids.length);
+  if (correct === ids.length) document.getElementById(cardId).classList.add('solved');
+}
+function resetSelects(cardId, ids) {
+  ids.forEach(id => { const el = document.getElementById(id); el.value=''; el.classList.remove('ok','err'); });
+  hideFb('fb-' + cardId);
+  document.getElementById(cardId).classList.remove('solved');
+}
+
+// ── FEEDBACK BANNER
+function showFb(id, c, t) {
+  const el = document.getElementById(id); if (!el) return;
+  const pct = Math.round(c/t*100);
+  const emoji = pct===100?'🎉':pct>=60?'👍':'💪';
+  const msg = pct===100?'Perfect score!':pct>=60?'Good work — check the ones in red.':'Keep trying!';
+  el.innerHTML = `<div class="fb-score">${c}/${t}</div><div class="fb-msg"><strong>${emoji} ${msg}</strong></div>`;
+  el.classList.add('show');
+}
+function hideFb(id) { const el=document.getElementById(id); if(el){el.classList.remove('show');el.innerHTML='';} }
+
+// ── HINT TOGGLE
+function toggleHint(id) { document.getElementById(id).classList.toggle('show'); }
+
+// ── EX 9 FILL
+const fillIds = ['f1','f2','f3','f4','f5','f6','f7','f8'];
+function norm(s) { return s.toLowerCase().trim().replace(/\s+/g,' '); }
+function checkFill() {
+  let correct = 0;
+  fillIds.forEach(id => {
+    const inp = document.getElementById(id); inp.classList.remove('ok','err');
+    if (!inp.value.trim()) return;
+    const ok = inp.dataset.ans.split('|').some(a => norm(inp.value)===norm(a));
+    ok ? (inp.classList.add('ok'), correct++) : inp.classList.add('err');
+  });
+  showFb('fb-ex9', correct, fillIds.length);
+  if (correct===fillIds.length) { document.getElementById('ex9').classList.add('solved'); document.getElementById('hint9').classList.add('show'); }
+}
+function resetFill() {
+  fillIds.forEach(id => { const i=document.getElementById(id); i.value=''; i.classList.remove('ok','err'); });
+  hideFb('fb-ex9'); document.getElementById('ex9').classList.remove('solved');
+}
+
+// ── EX 8 VERB PLACEMENT
+let selVerb = null;
+const placed = {1:[],2:[],3:[],4:[],5:[],6:[]};
+const answerKey8 = {
+  1:['agree','intend','refuse','threaten'],
+  2:['advise','encourage','remind','warn'],
+  3:['consider','deny','imagine','suggest'],
+  4:['apologize','confess','insist','worry'],
+  5:['advise','threaten','warn'],
+  6:['confess','deny','imagine','insist','suggest','threaten','warn','worry']
+};
+function selectVerb(el) {
+  document.querySelectorAll('.v-chip').forEach(c=>c.classList.remove('picked'));
+  selVerb = el.textContent; el.classList.add('picked');
+}
+function dropVerb(row) {
+  if (!selVerb) return;
+  const p = parseInt(row.dataset.pat);
+  if (!placed[p].includes(selVerb)) { placed[p].push(selVerb); renderPat(p); }
+  document.querySelectorAll('.v-chip').forEach(c=>c.classList.remove('picked'));
+  selVerb = null;
+}
+function renderPat(p) {
+  const el = document.getElementById('pv'+p);
+  el.textContent = placed[p].length ? placed[p].join(', ') : 'tap to place verb here';
+}
+function checkEx8() {
+  let score=0;
+  for (let p=1;p<=6;p++) {
+    const row = document.querySelector(`.pat-row[data-pat="${p}"]`);
+    row.classList.remove('ok','err');
+    if (!placed[p].length) continue;
+    const allOk = placed[p].every(v => answerKey8[p].includes(v));
+    allOk ? (row.classList.add('ok'), score++) : row.classList.add('err');
+  }
+  showFb('fb-ex8', score, 6);
+  document.getElementById('hint8').classList.add('show');
+}
+function resetEx8() {
+  for(let p=1;p<=6;p++){ placed[p]=[]; renderPat(p); document.querySelector(`.pat-row[data-pat="${p}"]`).classList.remove('ok','err'); }
+  document.querySelectorAll('.v-chip').forEach(c=>c.classList.remove('picked'));
+  selVerb=null; hideFb('fb-ex8'); document.getElementById('hint8').classList.remove('show');
+}
+
+// ── AUDIO PLAYER 1
+const aud = document.getElementById('main-audio');
+const playBtn = document.getElementById('ap-play');
+const seekBar = document.getElementById('ap-seek');
+const curTime = document.getElementById('ap-cur');
+const durTime = document.getElementById('ap-dur');
+
+function fmt(s) { const m=Math.floor(s/60); return m+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+
+if (aud) {
+  aud.addEventListener('loadedmetadata', () => { seekBar.max=aud.duration; durTime.textContent=fmt(aud.duration); });
+  aud.addEventListener('timeupdate', () => { seekBar.value=aud.currentTime; curTime.textContent=fmt(aud.currentTime); });
+  aud.addEventListener('ended', () => { playBtn.textContent='▶'; });
+}
+function togglePlay() {
+  if (!aud) return;
+  if (aud.paused) { aud.play(); playBtn.textContent='⏸'; } 
+  else { aud.pause(); playBtn.textContent='▶'; }
+}
+function seekAudio(v) { if(aud) aud.currentTime=v; }
+
+// ── AUDIO PLAYER 2
+const aud2 = document.getElementById('main-audio2');
+const playBtn2 = document.getElementById('ap-play2');
+const seekBar2 = document.getElementById('ap-seek2');
+const curTime2 = document.getElementById('ap-cur2');
+const durTime2 = document.getElementById('ap-dur2');
+if (aud2) {
+  aud2.addEventListener('loadedmetadata', () => { seekBar2.max=aud2.duration; durTime2.textContent=fmt(aud2.duration); });
+  aud2.addEventListener('timeupdate', () => { seekBar2.value=aud2.currentTime; curTime2.textContent=fmt(aud2.currentTime); });
+  aud2.addEventListener('ended', () => { playBtn2.textContent='▶'; });
+}
+function togglePlay2() {
+  if (!aud2) return;
+  if (aud2.paused) { aud2.play(); playBtn2.textContent='⏸'; }
+  else { aud2.pause(); playBtn2.textContent='▶'; }
+}
+function seekAudio2(v) { if(aud2) aud2.currentTime=v; }
+
+
+// ── AUDIO SCRIPT TOGGLE
+function toggleScript() {
+  const body = document.getElementById('script-body');
+  const arrow = document.getElementById('script-arrow');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  arrow.classList.toggle('open', !isOpen);
+}
+
+
+// ── SUBMIT / GENERATE ANSWERS
+function generateSubmit() {
+  const name = document.getElementById('student-name').value.trim() || 'Student';
+  const date = document.getElementById('student-date').value.trim() || new Date().toLocaleDateString('uk-UA');
+  const lines = [];
+
+  lines.push('═══════════════════════════════════════');
+  lines.push('  Outcomes Upper-Intermediate · 15C');
+  lines.push('  Food for Thought');
+  lines.push('═══════════════════════════════════════');
+  lines.push('  Student : ' + name);
+  lines.push('  Date    : ' + date);
+  lines.push('───────────────────────────────────────');
+  lines.push('');
+
+  // EX 2
+  lines.push('EX 2 — Match stories to headlines');
+  const ex2map = {m1:'Story 1',m2:'Story 2',m3:'Story 3',m4:'Story 4'};
+  const ex2ans = ['f','c','g','a'];
+  let ex2score = 0;
+  ['m1','m2','m3','m4'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    const val = el ? el.value : '–';
+    const correct = val === ex2ans[i];
+    if (correct) ex2score++;
+    lines.push('  ' + ex2map[id] + ' → ' + (val||'–') + (correct ? ' ✓' : ' ✗ (answer: ' + ex2ans[i] + ')'));
+  });
+  lines.push('  Score: ' + ex2score + '/4');
+  lines.push('');
+
+  // EX 3
+  lines.push('EX 3 — Match phrases to stories');
+  const ex3ids = ['ph1a','ph1b','ph2a','ph2b','ph3a','ph3b','ph4a','ph4b'];
+  const ex3labels = ['Story 1 (1st)','Story 1 (2nd)','Story 2 (1st)','Story 2 (2nd)','Story 3 (1st)','Story 3 (2nd)','Story 4 (1st)','Story 4 (2nd)'];
+  const ex3ans = ['suffering from severe hunger','promote good habits','pioneered plant-based burgers','offset the carbon from','with small fish as bait','scrape the seabed','a crime against humanity','possess a particular gene'];
+  let ex3score = 0;
+  ex3ids.forEach((id,i) => {
+    const el = document.getElementById(id);
+    const val = el ? el.value : '–';
+    const correct = val === ex3ans[i];
+    if (correct) ex3score++;
+    lines.push('  ' + ex3labels[i] + ': ' + (val||'–') + (correct ? ' ✓' : ' ✗'));
+  });
+  lines.push('  Score: ' + ex3score + '/8');
+  lines.push('');
+
+  // EX 5 — open answers
+  lines.push('EX 5 — Comprehension questions');
+  const q5labels = [
+    'Q1 How much food wasted?',
+    'Q2 Countries with anti-waste laws?',
+    'Q3 Special about football team?',
+    'Q4 Food wasted at Max\'s?',
+    'Q5 Accidental discovery?',
+    'Q6 Scallop eyes?',
+    'Q7 Ice cream flavour?',
+    'Q8 On sale how long?'
+  ];
+  // textarea notes in ex5 — select all textareas inside #ex5
+  const ex5card = document.getElementById('ex5');
+  if (ex5card) {
+    const tas = ex5card.querySelectorAll('textarea');
+    tas.forEach((ta, i) => {
+      lines.push('  ' + (q5labels[i]||('Q'+(i+1))) + ': ' + (ta.value.trim() || '–'));
+    });
+  }
+  lines.push('');
+
+  // EX 7 — pattern matching
+  lines.push('EX 7 — Reporting verb patterns');
+  const ex7map = {v1:'promises',v2:'urges',v3:'recommend',v4:'accused',v5:'claimed'};
+  const ex7ans = {v1:'1',v2:'2',v3:'3',v4:'5',v5:'6'};
+  let ex7score = 0;
+  Object.entries(ex7map).forEach(([id,verb]) => {
+    const el = document.getElementById(id);
+    const val = el ? el.value : '–';
+    const correct = val === ex7ans[id];
+    if (correct) ex7score++;
+    lines.push('  ' + verb + ' → pattern ' + (val||'–') + (correct ? ' ✓' : ' ✗ (answer: pattern ' + ex7ans[id] + ')'));
+  });
+  lines.push('  Score: ' + ex7score + '/5');
+  lines.push('');
+
+  // EX 8 — verb placement (placed object)
+  lines.push('EX 8 — Verb bank placement');
+  const patLabels = {1:'Pattern 1 (verb+to)',2:'Pattern 2 (verb+person+to)',3:'Pattern 3 (verb+-ing)',4:'Pattern 4 (verb+prep+-ing)',5:'Pattern 5 (verb+person+prep+-ing)',6:'Pattern 6 (that clause)'};
+  for (let p=1;p<=6;p++) {
+    const verbs = typeof placed !== 'undefined' ? placed[p] : [];
+    lines.push('  ' + patLabels[p] + ': ' + (verbs.length ? verbs.join(', ') : '–'));
+  }
+  lines.push('');
+
+  // EX 9 — fill in the blank
+  lines.push('EX 9 — Sentence transformations');
+  const fillMap = [
+    {id:'f1', label:'1 (URGE)', ans:'urge the company to rethink'},
+    {id:'f2', label:'2 (AGREED)', ans:'agreed to sell'},
+    {id:'f3', label:'3 (REFUSES)', ans:'refuses to eat'},
+    {id:'f4', label:'4 (INSISTS)', ans:'insists on making'},
+    {id:'f5', label:'5 (SUGGESTED)', ans:'suggested trying'},
+    {id:'f6', label:'6 (ENCOURAGING)', ans:'encouraging customers to try'},
+    {id:'f7', label:'7 (APOLOGIZED)', ans:'apologized for selling'},
+    {id:'f8', label:'8 (DENIED)', ans:'denied being'},
+  ];
+  let f9score = 0;
+  fillMap.forEach(({id,label,ans}) => {
+    const el = document.getElementById(id);
+    const val = el ? el.value.trim() : '–';
+    const correct = val && ans.split('|').some(a => val.toLowerCase().replace(/\s+/g,' ') === a.toLowerCase());
+    if (correct) f9score++;
+    lines.push('  ' + label + ': ' + (val||'–') + (correct ? ' ✓' : ' ✗'));
+  });
+  lines.push('  Score: ' + f9score + '/8');
+  lines.push('');
+
+  // EX 4 — notes
+  lines.push('EX 4 — Listening notes');
+  const ex4card = document.getElementById('ex4');
+  const noteLabels = ['Story 1 (Food waste)','Story 2 (Climate award)','Story 3 (Scallop disco)','Story 4 (Ice cream)'];
+  if (ex4card) {
+    const tas = ex4card.querySelectorAll('textarea');
+    tas.forEach((ta,i) => {
+      lines.push('  ' + (noteLabels[i]||('Story '+(i+1))) + ': ' + (ta.value.trim()||'–'));
+    });
+  }
+  lines.push('');
+
+  lines.push('═══════════════════════════════════════');
+
+  // Total auto-score
+  const totalAuto = ex2score + ex3score + ex7score + f9score;
+  const maxAuto = 4 + 8 + 5 + 8;
+  lines.push('  AUTO-SCORE: ' + totalAuto + '/' + maxAuto + ' (' + Math.round(totalAuto/maxAuto*100) + '%)');
+  lines.push('═══════════════════════════════════════');
+
+  const text = lines.join('\n');
+  document.getElementById('result-text').textContent = text;
+  document.getElementById('total-score').textContent = '✅ Auto-score: ' + totalAuto + '/' + maxAuto + ' (' + Math.round(totalAuto/maxAuto*100) + '%) — Ex 2 + Ex 3 + Ex 7 + Ex 9';
+  document.getElementById('submit-result').classList.add('show');
+  document.getElementById('submit-result').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function copyResult() {
+  const text = document.getElementById('result-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy all'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+</script>
+</body>
+</html>
