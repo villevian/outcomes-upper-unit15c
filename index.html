@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15C Reporting Verbs Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F8F6F2;
+  --card: #FFFFFF;
+  --green: #2A7D4F;
+  --green-bg: #E6F4EC;
+  --yellow: #C4960F;
+  --yellow-bg: #FFF8E1;
+  --orange: #C75B22;
+  --orange-bg: #FFF1E8;
+  --red: #B8342A;
+  --red-bg: #FDECEB;
+  --blue: #3566A0;
+  --blue-bg: #EBF0F8;
+  --text: #1C1C1C;
+  --text2: #5C5C5C;
+  --border: #E4E0DA;
+  --correct: #2A7D4F;
+  --wrong: #B8342A;
+  --radius: 10px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+/* HEADER */
+.hdr { background:linear-gradient(135deg,#2A7D4F,#1B5C38); color:#fff; padding:22px 24px 16px; position:relative; overflow:hidden; }
+.hdr::after { content:''; position:absolute; top:-30px; right:-30px; width:140px; height:140px; background:rgba(255,255,255,.06); border-radius:50%; }
+.hdr h1 { font-family:'Fraunces',serif; font-size:1.35em; font-weight:700; letter-spacing:-.01em; }
+.hdr .sub { font-size:.82em; opacity:.8; margin-top:3px; }
+
+/* TABS */
+.tabs { display:flex; overflow-x:auto; background:var(--card); border-bottom:2px solid var(--border); gap:0; scrollbar-width:none; }
+.tabs::-webkit-scrollbar { display:none; }
+.tab { flex-shrink:0; padding:10px 14px; font-size:.78em; font-weight:600; cursor:pointer; border-bottom:3px solid transparent; color:var(--text2); transition:.2s; white-space:nowrap; }
+.tab:hover { color:var(--text); background:#f5f3ef; }
+.tab.active { color:var(--green); border-bottom-color:var(--green); }
+
+/* PANELS */
+.panel { display:none; padding:16px; max-width:800px; margin:0 auto; }
+.panel.active { display:block; }
+
+/* CARDS */
+.card { background:var(--card); border-radius:var(--radius); border:1px solid var(--border); padding:18px; margin-bottom:14px; box-shadow:0 1px 6px rgba(0,0,0,.04); }
+.card h3 { font-family:'Fraunces',serif; font-size:1.1em; margin-bottom:4px; }
+.card .meta { font-size:.8em; color:var(--text2); margin-bottom:12px; }
+
+/* EXERCISE ITEMS */
+.ex-item { padding:14px 0; border-bottom:1px solid #f0ede8; }
+.ex-item:last-child { border-bottom:none; }
+.ex-num { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; font-size:.75em; font-weight:700; color:#fff; margin-right:8px; flex-shrink:0; }
+.ex-prompt { font-size:.95em; font-style:italic; color:var(--text); margin-bottom:8px; line-height:1.5; }
+.ex-prompt strong, .ex-prompt b { color:var(--orange); font-weight:600; }
+
+/* INPUT ROW */
+.input-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.input-row input { flex:1; min-width:180px; padding:9px 12px; border:2px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9em; outline:none; transition:.2s; }
+.input-row input:focus { border-color:var(--green); }
+.input-row input.correct { border-color:var(--correct); background:#f0faf4; }
+.input-row input.wrong { border-color:var(--wrong); background:#fdf2f1; }
+
+.btn { padding:9px 16px; border:none; border-radius:8px; font-family:inherit; font-size:.85em; font-weight:600; cursor:pointer; transition:.15s; }
+.btn-check { background:var(--green); color:#fff; }
+.btn-check:hover { background:#236b42; }
+.btn-show { background:var(--yellow-bg); color:var(--yellow); border:1px solid #e8d57a; }
+.btn-show:hover { background:#fff0c0; }
+.btn-reset { background:#f0ede8; color:var(--text2); }
+.btn-reset:hover { background:#e4e0da; }
+.btn-next { background:var(--blue); color:#fff; }
+.btn-next:hover { background:#2a5080; }
+
+.answer-reveal { margin-top:8px; padding:8px 12px; border-radius:8px; font-size:.88em; display:none; }
+.answer-reveal.show { display:block; }
+.answer-reveal.ok { background:var(--green-bg); color:var(--green); }
+.answer-reveal.no { background:var(--red-bg); color:var(--red); }
+
+/* ODD-ONE-OUT */
+.ooo-group { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+.ooo-btn { padding:10px 18px; border:2px solid var(--border); border-radius:8px; background:var(--card); font-family:inherit; font-size:.92em; font-weight:500; cursor:pointer; transition:.15s; }
+.ooo-btn:hover { border-color:var(--blue); background:var(--blue-bg); }
+.ooo-btn.selected-correct { border-color:var(--correct); background:var(--green-bg); color:var(--correct); font-weight:700; }
+.ooo-btn.selected-wrong { border-color:var(--wrong); background:var(--red-bg); color:var(--wrong); }
+.ooo-btn.dimmed { opacity:.5; }
+
+/* SCORE */
+.score-bar { display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--green-bg); border-radius:var(--radius); margin-bottom:14px; }
+.score-bar .score-num { font-family:'Fraunces',serif; font-size:1.6em; font-weight:700; color:var(--green); }
+.score-bar .score-label { font-size:.85em; color:var(--green); }
+
+/* ROLE PLAY CARDS */
+.rp-card { background:var(--card); border-left:4px solid var(--orange); border-radius:0 var(--radius) var(--radius) 0; padding:16px; margin-bottom:12px; }
+.rp-card.teacher { border-left-color:var(--red); }
+.rp-card.student { border-left-color:var(--green); }
+.rp-card .rp-role { font-size:.72em; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+.rp-card.teacher .rp-role { color:var(--red); }
+.rp-card.student .rp-role { color:var(--green); }
+
+/* PATTERN REFERENCE */
+.pat-group { margin-bottom:12px; }
+.pat-label { display:inline-block; padding:3px 10px; border-radius:20px; font-size:.72em; font-weight:700; margin-bottom:6px; }
+.pat-list { font-size:.88em; line-height:1.8; padding-left:6px; }
+
+/* LIVE WRITING */
+.lw-row { display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; }
+.lw-label { flex-shrink:0; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.7em; font-weight:700; color:#fff; margin-top:2px; }
+.lw-text { font-size:.92em; line-height:1.6; }
+
+/* TIMER */
+.timer-bar { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding:10px 14px; background:var(--yellow-bg); border-radius:var(--radius); border:1px solid #f0dc7a; }
+.timer-display { font-family:'Fraunces',serif; font-size:1.5em; font-weight:700; color:var(--yellow); min-width:50px; }
+.timer-label { font-size:.82em; color:var(--yellow); }
+
+/* MICRO-CORRECTION */
+.mc-wrong { text-decoration:line-through; color:var(--wrong); font-style:italic; }
+.mc-correct { color:var(--correct); font-weight:600; }
+
+/* DISAPPEARING CHUNKS SCREEN */
+.chunk-screen { display:flex; flex-wrap:wrap; gap:8px; padding:14px; background:#f5f3ef; border-radius:var(--radius); margin-bottom:14px; min-height:48px; }
+.chunk-tag { padding:6px 14px; background:var(--card); border:1px solid var(--border); border-radius:20px; font-size:.85em; font-weight:500; transition:.3s; }
+.chunk-tag.hidden { opacity:0; transform:scale(.8); pointer-events:none; }
+.pack-bar { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 6px; }
+.pack-btn { width:42px; height:36px; border:2px solid var(--border); border-radius:8px; background:var(--card); font-family:inherit; font-size:.85em; font-weight:700; color:var(--text2); cursor:pointer; transition:.15s; }
+.pack-btn:hover { border-color:var(--green); color:var(--green); background:var(--green-bg); }
+.pack-btn.active { border-color:var(--green); color:#fff; background:var(--green); }
+.pack-meta { font-size:.82em; color:var(--text2); line-height:1.45; margin:8px 0 10px; }
+
+/* FOOTER ACTIONS */
+.footer-actions { display:flex; gap:8px; justify-content:center; padding:16px; flex-wrap:wrap; }
+
+/* RESPONSIVE */
+@media(max-width:600px) {
+  .hdr h1 { font-size:1.15em; }
+  .tab { padding:9px 10px; font-size:.72em; }
+  .card { padding:14px; }
+  .ooo-btn { padding:8px 14px; font-size:.85em; }
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>🎯 Reporting Verbs Mastery</h1>
+  <div class="sub">15C Food for Thought — Grammar as Lexis | 60 min Intensive</div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-tab="disappear">🟢 Chunks</div>
+  <div class="tab" data-tab="wrong">🟢 Wrong!</div>
+  <div class="tab" data-tab="sprint">🟢 Sprint</div>
+  <div class="tab" data-tab="oddone">🟡 Odd One</div>
+  <div class="tab" data-tab="output">🔴 Output</div>
+  <div class="tab" data-tab="micro">🔧 Fix It</div>
+  <div class="tab" data-tab="ref">📋 Ref</div>
+</div>
+
+<!-- ==================== TAB 1: DISAPPEARING CHUNKS ==================== -->
+<div class="panel active" id="panel-disappear">
+  <div class="card">
+    <h3>🟢 Disappearing Chunks</h3>
+    <div class="meta">10 separate exercises → each one has 10 mini-dialogues → student recalls the full chunk with no pattern hint</div>
+  </div>
+  <div id="disappearExercises"></div>
+</div>
+
+<!-- ==================== TAB 2: YOU'RE WRONG ==================== -->
+<div class="panel" id="panel-wrong">
+  <div class="card">
+    <h3>🟢 "You're Wrong, Teacher!"</h3>
+    <div class="meta">Teacher reads a WRONG sentence. Student shouts "You're wrong!" and gives the correct version.</div>
+  </div>
+
+  <div id="wrongScore" class="score-bar" style="display:none">
+    <div class="score-num" id="wrongScoreNum">0</div>
+    <div class="score-label">/ <span id="wrongScoreTotal">10</span> correct</div>
+  </div>
+
+  <div class="card" id="wrongExercise"></div>
+
+  <div class="footer-actions">
+    <button class="btn btn-reset" onclick="resetWrong()">↺ Reset</button>
+    <button class="btn btn-check" onclick="checkAllWrong()">✓ Check All</button>
+  </div>
+</div>
+
+<!-- ==================== TAB 3: SPRINT ==================== -->
+<div class="panel" id="panel-sprint">
+  <div class="card">
+    <h3>🟢 Prompted Recall Sprint</h3>
+    <div class="meta">Verb + context → Complete the full phrase. 3 seconds per answer!</div>
+  </div>
+
+  <div class="timer-bar">
+    <div class="timer-display" id="sprintTimer">3.0</div>
+    <div class="timer-label">seconds per answer</div>
+    <button class="btn btn-check" onclick="toggleSprintTimer()" id="sprintTimerBtn" style="margin-left:auto">▶ Start Timer</button>
+  </div>
+
+  <div id="sprintScore" class="score-bar" style="display:none">
+    <div class="score-num" id="sprintScoreNum">0</div>
+    <div class="score-label">/ <span id="sprintScoreTotal">10</span> correct</div>
+  </div>
+
+  <div class="card" id="sprintExercise"></div>
+
+  <div class="footer-actions">
+    <button class="btn btn-reset" onclick="resetSprint()">↺ Reset</button>
+    <button class="btn btn-check" onclick="checkAllSprint()">✓ Check All</button>
+  </div>
+</div>
+
+<!-- ==================== TAB 4: ODD ONE OUT ==================== -->
+<div class="panel" id="panel-oddone">
+  <div class="card">
+    <h3>🟡 Odd One Out — Lexical Discrimination</h3>
+    <div class="meta">Which verb doesn't belong? Tap the "spy" in each group.</div>
+  </div>
+
+  <div id="oddOneScore" class="score-bar" style="display:none">
+    <div class="score-num" id="oddOneScoreNum">0</div>
+    <div class="score-label">/ <span id="oddOneScoreTotal">6</span> correct</div>
+  </div>
+
+  <div id="oddOneExercise"></div>
+</div>
+
+<!-- ==================== TAB 5: OUTPUT TASKS ==================== -->
+<div class="panel" id="panel-output">
+  <div class="card">
+    <h3>🔴 Forced Output Tasks</h3>
+    <div class="meta">Role-play prompts for teacher. Use constraints to force target patterns.</div>
+  </div>
+
+  <!-- TASK 1 -->
+  <div class="card">
+    <h3>🎤 Task 1: The Food Scandal Press Conference</h3>
+    <div class="meta">Student = CEO of a company that made "coriander ice cream". Teacher = aggressive journalist.</div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher (Journalist)</div>
+      <div class="rp-text">1. "People say your new burger is a <b>crime against humanity</b>. Do you admit that it's healthy only on paper?"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Student must use</div>
+      <div class="rp-text"><b>deny + -ing</b> → e.g. "I absolutely <b>deny making</b> unhealthy food!"</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">2. "Our investigation shows tons of your food <b>goes uneaten</b> and ends up in the bin. Why do you allow this <b>criminal waste</b>?"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Student must use</div>
+      <div class="rp-text"><b>refuse to + do</b> AND <b>insist on + -ing</b> → e.g. "We <b>refuse to accept</b> these claims and <b>insist on reducing</b> waste."</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">3. "You <b>pioneered plant-based burgers</b>, but critics say they taste like cardboard. How do you respond?"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Student must use</div>
+      <div class="rp-text"><b>urge someone to + do</b> AND <b>encourage someone to + do</b> → e.g. "I <b>urge critics to try</b> it first and <b>encourage everyone to keep</b> an open mind."</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">4. "Will you resign over this scandal?"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Student must use</div>
+      <div class="rp-text"><b>threaten to + do</b> OR <b>agree to + do</b> → e.g. "I <b>threaten to sue</b> anyone who spreads lies" / "I <b>agree to launch</b> an internal review."</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">5. "Your own staff confessed to cutting corners with ingredients."</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Student must use</div>
+      <div class="rp-text"><b>warn someone to + do</b> AND <b>advise someone to + do</b> → e.g. "I <b>warn you not to trust</b> rumors and <b>advise the public to wait</b> for official results."</div>
+    </div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="card">
+    <h3>🎬 Task 2: The Netflix "Blind Pitch"</h3>
+    <div class="meta">Student pitches a movie idea using Unit 1 vocabulary.</div>
+
+    <div class="rp-card student">
+      <div class="rp-role">📝 Framework for student</div>
+      <div class="rp-text">
+        1. <b>Background:</b> "It's an <b>adaptation</b> of… / It has an <b>astonishing cast</b>."<br>
+        2. <b>Plot:</b> "The <b>plot revolves around</b>… / It <b>tackles</b> the issue of…"<br>
+        3. <b>Hook:</b> "It's totally <b>gripping</b> and <b>uplifting</b>."<br>
+        4. <b>Honest flaw:</b> "Some scenes are <b>over-the-top</b>, but the acting saves it."
+      </div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher provocations</div>
+      <div class="rp-text">
+        1. "Sounds like another <b>remake</b> that relies on <b>predictable clichés</b>. Why should I invest?"<br>
+        2. "Is it going to be a <b>box-office hit</b>, or just too <b>weird</b> for the mainstream?"<br>
+        3. "Your last project <b>flopped</b>. Convince me this one's different."
+      </div>
+    </div>
+
+    <div class="rp-card student">
+      <div class="rp-role">💼 Must use reporting verbs</div>
+      <div class="rp-text">
+        <b>suggest + -ing</b>, <b>consider + -ing</b>, <b>imagine + -ing</b><br>
+        e.g. "I <b>suggest watching</b> the trailer first" / "Just <b>imagine seeing</b> this on the big screen!" / "<b>Consider investing</b> — you won't regret it."
+      </div>
+    </div>
+  </div>
+
+  <!-- TASK 3 -->
+  <div class="card">
+    <h3>💰 Task 3: The "Angry Client" Confrontation</h3>
+    <div class="meta">Student = bank manager. Teacher = furious client whose card got eaten by the cashpoint.</div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher (Client)</div>
+      <div class="rp-text">1. "The <b>cashpoint ate my card</b>, and now I'm <b>strapped for cash</b>! This is a <b>total rip-off</b>!"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Must use</div>
+      <div class="rp-text"><b>apologize for + -ing</b> AND passive promise → e.g. "I sincerely <b>apologize for causing</b> this inconvenience. Your card <b>will be returned</b> within 24 hours."</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">2. "You <b>charged me commission</b> for a transfer that <b>has been delayed</b> for 3 days!"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Must use</div>
+      <div class="rp-text"><b>confess to + -ing</b> AND <b>intend to + do</b> → e.g. "I <b>confess to overlooking</b> this issue. We <b>intend to refund</b> the commission immediately."</div>
+    </div>
+
+    <div class="rp-card teacher">
+      <div class="rp-role">🎙 Teacher</div>
+      <div class="rp-text">3. "I'm closing my account unless you fix this NOW!"</div>
+    </div>
+    <div class="rp-card student">
+      <div class="rp-role">💼 Must use</div>
+      <div class="rp-text"><b>worry about + -ing</b> AND <b>remind someone to + do</b> → e.g. "I understand you <b>worry about losing</b> money. Let me <b>remind you to check</b> your updated statement tomorrow."</div>
+    </div>
+  </div>
+
+  <!-- TASK 4 -->
+  <div class="card">
+    <h3>✍️ Task 4: Live Writing (Synthesis)</h3>
+    <div class="meta">Student writes a LinkedIn/Twitter post about the scandal. Teacher upgrades vocabulary in real time.</div>
+
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--red)">S</div>
+      <div class="lw-text"><i>"We said we are sorry for the food waste."</i></div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--green)">T</div>
+      <div class="lw-text">"Can we use <b>'apologize for'</b>? How about <b>'criminal waste'</b>?"</div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--blue)">✓</div>
+      <div class="lw-text"><b>"The company apologized for the criminal waste and urged customers to stay calm."</b></div>
+    </div>
+
+    <div style="height:12px"></div>
+
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--red)">S</div>
+      <div class="lw-text"><i>"The boss said they will change everything."</i></div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--green)">T</div>
+      <div class="lw-text">"Replace 'said' — use a reporting verb! And what exactly will they change?"</div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--blue)">✓</div>
+      <div class="lw-text"><b>"The CEO agreed to overhaul the supply chain and encouraged staff to report waste."</b></div>
+    </div>
+
+    <div style="height:12px"></div>
+
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--red)">S</div>
+      <div class="lw-text"><i>"Some people think the company is lying."</i></div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--green)">T</div>
+      <div class="lw-text">"Who? 'Critics'? And 'think' → something stronger?"</div>
+    </div>
+    <div class="lw-row">
+      <div class="lw-label" style="background:var(--blue)">✓</div>
+      <div class="lw-text"><b>"Critics accused the company of hiding the truth and warned consumers not to trust the brand."</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 6: MICRO-CORRECTION ==================== -->
+<div class="panel" id="panel-micro">
+  <div class="card">
+    <h3>🔧 Micro-Correction — Fix the Broken Patterns</h3>
+    <div class="meta">Find and fix the error in each sentence. Type the corrected version.</div>
+  </div>
+
+  <div id="microScore" class="score-bar" style="display:none">
+    <div class="score-num" id="microScoreNum">0</div>
+    <div class="score-label">/ <span id="microScoreTotal">10</span> correct</div>
+  </div>
+
+  <div class="card" id="microExercise"></div>
+
+  <div class="footer-actions">
+    <button class="btn btn-reset" onclick="resetMicro()">↺ Reset</button>
+    <button class="btn btn-check" onclick="checkAllMicro()">✓ Check All</button>
+  </div>
+</div>
+
+<!-- ==================== TAB 7: REFERENCE ==================== -->
+<div class="panel" id="panel-ref">
+  <div class="card">
+    <h3>📋 Pattern Reference Card</h3>
+    <div class="meta">Quick-look cheat sheet for delayed correction</div>
+  </div>
+
+  <div class="card">
+    <div class="pat-group">
+      <div class="pat-label" style="background:var(--green-bg);color:var(--green)">V + to do</div>
+      <div class="pat-list"><b>agree</b> to do · <b>refuse</b> to do · <b>threaten</b> to do · <b>intend</b> to do</div>
+    </div>
+    <div class="pat-group">
+      <div class="pat-label" style="background:var(--blue-bg);color:var(--blue)">V + sb + to do</div>
+      <div class="pat-list"><b>urge</b> sb to do · <b>advise</b> sb to do · <b>encourage</b> sb to do · <b>remind</b> sb to do · <b>warn</b> sb (not) to do</div>
+    </div>
+    <div class="pat-group">
+      <div class="pat-label" style="background:var(--orange-bg);color:var(--orange)">V + -ing</div>
+      <div class="pat-list"><b>deny</b> doing · <b>suggest</b> doing · <b>consider</b> doing · <b>imagine</b> doing</div>
+    </div>
+    <div class="pat-group">
+      <div class="pat-label" style="background:var(--red-bg);color:var(--red)">V + prep + -ing</div>
+      <div class="pat-list"><b>apologize for</b> doing · <b>confess to</b> doing · <b>insist on</b> doing · <b>worry about</b> doing</div>
+    </div>
+    <div class="pat-group">
+      <div class="pat-label" style="background:var(--yellow-bg);color:var(--yellow)">V + that clause</div>
+      <div class="pat-list"><b>confess · deny · imagine · insist · suggest · threaten · warn · worry</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚠️ Common Traps</h3>
+    <div class="pat-list" style="line-height:2">
+      ✗ <span class="mc-wrong">deny to do</span> → ✓ <span class="mc-correct">deny doing</span><br>
+      ✗ <span class="mc-wrong">suggest to try</span> → ✓ <span class="mc-correct">suggest trying</span><br>
+      ✗ <span class="mc-wrong">insist to make</span> → ✓ <span class="mc-correct">insist on making</span><br>
+      ✗ <span class="mc-wrong">urged to rethink</span> → ✓ <span class="mc-correct">urged THEM to rethink</span><br>
+      ✗ <span class="mc-wrong">apologize to sell</span> → ✓ <span class="mc-correct">apologize for selling</span><br>
+      ✗ <span class="mc-wrong">confess doing</span> → ✓ <span class="mc-correct">confess to doing</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== TAB SWITCHING ==========
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ========== DISAPPEARING CHUNKS ==========
+const disappearData = [
+  { prompt: `A: Did Leo accept the big-budget remake?<br>B: He ______ ______ watch it, but only because the trailer had background music doing emotional blackmail.`, chunk: 'agreed to watch', display: 'agree to watch' },
+  { prompt: `A: Is Mia starring in that low-budget horror film?<br>B: She ______ ______ star in anything with a basement and a doll. Growth.`, chunk: 'refused to star', display: 'refuse to star' },
+  { prompt: `A: Why is the director screaming into a croissant?<br>B: He ______ ______ delete the whole scene if the catchy slogan stays.`, chunk: 'threatened to delete', display: 'threaten to delete' },
+  { prompt: `A: What's Ben's all-time genius plan?<br>B: He ______ ______ produce a gripping drama about a man addicted to reality TV. So, a documentary.`, chunk: 'intends to produce', display: 'intend to produce' },
+  { prompt: `A: What did the agent say about the commercial soundtrack?<br>B: She ______ him ______ avoid it unless he wants the film to flop commercially.`, chunk: 'advised him to avoid', display: 'advise sb to avoid' },
+  { prompt: `A: Why is Barbie in the writers' room?<br>B: She ______ us ______ pitch an uplifting adaptation with absolutely no weird basement energy.`, chunk: 'encouraged us to pitch', display: 'encourage sb to pitch' },
+  { prompt: `A: Did the screenwriter copy that classic ending?<br>B: He ______ ______ it, but the final scene basically wears a tiny fake moustache.`, chunk: 'denied copying', display: 'deny copying' },
+  { prompt: `A: How do we fix this over-the-top trailer?<br>B: I ______ ______ the explosion, the second explosion, and the slow-motion speech.`, chunk: 'suggest cutting', display: 'suggest cutting' },
+  { prompt: `A: Why did the producer send cupcakes?<br>B: She ______ ______ making a dreadful commercial that everyone was weirdly glued to.`, chunk: 'apologized for making', display: 'apologize for making' },
+  { prompt: `A: Did the reviewer like the film?<br>B: He ______ ______ calling it hilarious, inspiring, and only 40% nonsense.`, chunk: 'insisted on calling', display: 'insist on calling' },
+
+  { prompt: `A: Did Jake agree to sightseeing after three coffees?<br>B: He ______ ______ visit the historic landmark, but only if nobody says "hidden gem".`, chunk: 'agreed to visit', display: 'agree to visit' },
+  { prompt: `A: Is Nora staying at that filthy campsite?<br>B: She ______ ______ sleep anywhere described as "rustic but character-building".`, chunk: 'refused to sleep', display: 'refuse to sleep' },
+  { prompt: `A: Why is the mayor touching the model of the high-rise?<br>B: He ______ ______ knock down the hideous venue and call it urban poetry.`, chunk: 'threatened to knock down', display: 'threaten to knock down' },
+  { prompt: `A: Why is Gandalf outside the fortress?<br>B: He ______ tourists ______ leave before the fireworks display turns into a budget disaster.`, chunk: 'urged tourists to leave', display: 'urge sb to leave' },
+  { prompt: `A: What did the guide say about the dense fog?<br>B: She ______ us ______ drive over the cliff for "a better view".`, chunk: 'warned us not to drive', display: 'warn sb not to drive' },
+  { prompt: `A: Why did the hotel text at 6 a.m.?<br>B: It ______ me ______ check out before the residential area wakes up and judges my suitcase.`, chunk: 'reminded me to check out', display: 'remind sb to check out' },
+  { prompt: `A: Are they planning to camp near the waterside?<br>B: They're ______ ______ camp there, because apparently soaking wet is a lifestyle.`, chunk: 'considering setting up', display: 'consider setting up' },
+  { prompt: `A: Did Max admit he booked the isolated cabin?<br>B: He ______ ______ it, even though his name is on the "glorious sunset, zero Wi-Fi" receipt.`, chunk: 'denied booking', display: 'deny booking' },
+  { prompt: `A: Why is the travel agent hiding behind a brochure?<br>B: She ______ ______ booking us into a dump with "stunning scenery".`, chunk: 'apologized for booking', display: 'apologize for booking' },
+  { prompt: `A: Why are they still on the hill in stormy weather?<br>B: They ______ ______ watching the sunset like the final scene of a doomed romance.`, chunk: 'insisted on watching', display: 'insist on watching' },
+
+  { prompt: `A: What did the neighbour say about the leak?<br>B: He ______ me ______ bring a bucket of water and a mop, which feels like plumbing cosplay.`, chunk: 'advised me to bring', display: 'advise sb to bring' },
+  { prompt: `A: Why is Leo polishing his shoes before the get-together?<br>B: His sister ______ him ______ freshen up because "casual" apparently has standards.`, chunk: 'encouraged him to freshen up', display: 'encourage sb to freshen up' },
+  { prompt: `A: Did you remember the charger?<br>B: My phone ______ me ______ bring it, because even machines know I'm a disaster.`, chunk: 'reminded me to bring', display: 'remind sb to bring' },
+  { prompt: `A: What did Dad say about the drill?<br>B: He ______ us ______ use it near the big do, unless we want confetti and lawsuits.`, chunk: 'warned us not to use', display: 'warn sb not to use' },
+  { prompt: `A: Why is the host pointing at the corkscrew?<br>B: She ______ everyone ______ stop treating it like Excalibur.`, chunk: 'urged everyone to stop', display: 'urge sb to stop' },
+  { prompt: `A: Are they planning another birthday do?<br>B: They're ______ ______ a small get-together, which means 46 people and a children’s entertainer.`, chunk: 'considering throwing', display: 'consider throwing' },
+  { prompt: `A: Did Tom break the steam iron?<br>B: He ______ ______ it, but the shirt now looks like a crime scene.`, chunk: 'denied breaking', display: 'deny breaking' },
+  { prompt: `A: How do we clean the correction fluid off the table?<br>B: I ______ ______ a cleaning cloth and pretending this never happened.`, chunk: 'suggest using', display: 'suggest using' },
+  { prompt: `A: Why did Jess buy everyone dessert?<br>B: She ______ ______ turning the family get-together into a PowerPoint hostage situation.`, chunk: 'apologized for turning', display: 'apologize for turning' },
+  { prompt: `A: Why is Sam paying for the spa day?<br>B: He ______ ______ treating himself after surviving the annual office do.`, chunk: 'insisted on treating', display: 'insist on treating' },
+
+  { prompt: `A: Did the council accept the plan?<br>B: They ______ ______ tackle the cost of living, then immediately formed a committee about chairs.`, chunk: 'agreed to tackle', display: 'agree to tackle' },
+  { prompt: `A: Will the celebrity pay the fine?<br>B: He ______ ______ pay it and called bureaucracy "a vibe killer".`, chunk: 'refused to pay', display: 'refuse to pay' },
+  { prompt: `A: Why is the journalist smiling like a Bond villain?<br>B: She ______ ______ expose the fraud unless the company stopped hiding behind soft PR.`, chunk: 'threatened to expose', display: 'threaten to expose' },
+  { prompt: `A: What did the consultant tell the mayor?<br>B: He ______ the mayor ______ boost tourism without building another hideous selfie wall.`, chunk: 'advised the mayor to boost', display: 'advise sb to boost' },
+  { prompt: `A: Why is the activist on TV?<br>B: She ______ the government ______ tackle corruption before its reputation goes fully Titanic.`, chunk: 'urged the government to tackle', display: 'urge sb to tackle' },
+  { prompt: `A: Did Kyle commit burglary?<br>B: He ______ ______ a burglary, but he was literally holding the stolen karaoke machine.`, chunk: 'denied committing', display: 'deny committing' },
+  { prompt: `A: Did the accountant finally crack?<br>B: He ______ ______ committing fraud after the spreadsheet started giving villain monologue energy.`, chunk: 'confessed to committing', display: 'confess to committing' },
+  { prompt: `A: What did the police say about the mobile device?<br>B: They ______ Nina ______ avoid identity theft jokes in court. Apparently judges hate "just vibes".`, chunk: 'warned Nina to avoid', display: 'warn sb to avoid' },
+  { prompt: `A: What did the newsreader say after the protest?<br>B: She ______ viewers ______ stay away from the controversial square.`, chunk: 'warned viewers to stay', display: 'warn sb to stay' },
+  { prompt: `A: Did the minister accept the scandal?<br>B: He ______ ______ protecting his reputation. The microphones looked unconvinced.`, chunk: 'insisted on protecting', display: 'insist on protecting' },
+
+  { prompt: `A: Did Mia enter the belly dancing workshop?<br>B: She ______ ______ compete, although her coordination has left the group chat.`, chunk: 'agreed to compete', display: 'agree to compete' },
+  { prompt: `A: Is Dan doing the stamina test?<br>B: He ______ ______ run after getting out of breath walking to the printer.`, chunk: 'refused to run', display: 'refuse to run' },
+  { prompt: `A: Why is the intern holding an envelope dramatically?<br>B: He ______ ______ hand in his notice if he gets one more menial task called "a growth opportunity".`, chunk: 'threatened to hand in', display: 'threaten to hand in' },
+  { prompt: `A: What did the trainer say?<br>B: She ______ me ______ get back in shape before signing up for a marathon I saw on TikTok.`, chunk: 'advised me to get back', display: 'advise sb to get back' },
+  { prompt: `A: Why is the manager clapping like a sports coach?<br>B: He ______ me ______ apply for promotion, which is sweet and terrifying.`, chunk: 'encouraged me to apply', display: 'encourage sb to apply' },
+  { prompt: `A: Did the teacher mention the essay?<br>B: She ______ us ______ hand in our homework before midnight, the academic witching hour.`, chunk: 'reminded us to hand in', display: 'remind sb to hand in' },
+  { prompt: `A: What did the referee say?<br>B: He ______ them ______ cheat, because apparently "creative scoring" is not a sport.`, chunk: 'warned them not to cheat', display: 'warn sb not to cheat' },
+  { prompt: `A: Is Kim leaving her stimulating job?<br>B: She's ______ ______ her job because the workload is now a personality trait.`, chunk: 'considering quitting', display: 'consider quitting' },
+  { prompt: `A: Did Rob admit he was out of shape?<br>B: He ______ ______ out of breath, while breathing like a haunted accordion.`, chunk: 'denied being', display: 'deny being' },
+  { prompt: `A: Why did the boss send a sorry email?<br>B: She ______ ______ delegating responsibility to "the team" and then vanishing without trace.`, chunk: 'apologized for delegating', display: 'apologize for delegating' },
+
+  { prompt: `A: Did they accept the rental conditions?<br>B: They ______ ______ pay the refundable deposit, then read the small print and aged visibly.`, chunk: 'agreed to pay', display: 'agree to pay' },
+  { prompt: `A: Will Grandpa sign the car rental form?<br>B: He ______ ______ sign anything with "excess" in tiny letters. Correct energy.`, chunk: 'refused to sign', display: 'refuse to sign' },
+  { prompt: `A: Why is the bank manager sweating?<br>B: The client ______ ______ withdraw all her savings unless the unauthorized overdraft disappeared.`, chunk: 'threatened to withdraw', display: 'threaten to withdraw' },
+  { prompt: `A: What did the travel agent say?<br>B: She ______ us ______ get insurance cover before renting the dodgy diesel car.`, chunk: 'advised us to get', display: 'advise sb to get' },
+  { prompt: `A: Why did the driving instructor tap the dashboard?<br>B: He ______ me ______ change gear before the engine started composing jazz.`, chunk: 'reminded me to change', display: 'remind sb to change' },
+  { prompt: `A: What did the mechanic say?<br>B: He ______ us ______ run out of fuel on the bend, which feels like fair advice.`, chunk: 'warned us not to run out', display: 'warn sb not to run out' },
+  { prompt: `A: Why is the customer at the counter?<br>B: She ______ the bank ______ repay the overdraft charges before she became a courtroom drama.`, chunk: 'urged the bank to repay', display: 'urge sb to repay' },
+  { prompt: `A: Are they thinking of renting the estate car?<br>B: They're ______ ______ it, mostly for the wide range of cup holders.`, chunk: 'considering renting', display: 'consider renting' },
+  { prompt: `A: Did Nick owe rent?<br>B: He ______ ______ rent, but his bank balance said "plot twist".`, chunk: 'denied owing', display: 'deny owing' },
+  { prompt: `A: Why did the currency exchange clerk look guilty?<br>B: He ______ ______ charging commission that could fund a small moon base.`, chunk: 'apologized for charging', display: 'apologize for charging' },
+
+  { prompt: `A: Did Stella agree to get help for anxiety?<br>B: She ______ ______ see a therapist, after her calendar gave her considerable anxiety.`, chunk: 'agreed to see', display: 'agree to see' },
+  { prompt: `A: Will Max use his asthma inhaler?<br>B: He ______ ______ use it until the nurse gave him the look. The medical one.`, chunk: 'refused to use', display: 'refuse to use' },
+  { prompt: `A: Why is Chloe staring at her workload?<br>B: She ______ ______ quit her job if one more "quick call" appeared.`, chunk: 'threatened to quit', display: 'threaten to quit' },
+  { prompt: `A: What did the doctor say?<br>B: He ______ me ______ reduce anxiety before my chest pain starts doing Shakespeare.`, chunk: 'advised me to reduce', display: 'advise sb to reduce' },
+  { prompt: `A: Did the school nurse say anything?<br>B: She ______ us ______ carry an inhaler during the sports day, because optimism is not medicine.`, chunk: 'reminded us to carry', display: 'remind sb to carry' },
+  { prompt: `A: What did the allergy specialist say?<br>B: She ______ me ______ eat nuts after that allergic reaction. Wildly reasonable.`, chunk: 'warned me not to eat', display: 'warn sb not to eat' },
+  { prompt: `A: Is Leo leaving university?<br>B: He's ______ ______ out after one draining seminar and a tragic sandwich.`, chunk: 'considering dropping', display: 'consider dropping' },
+  { prompt: `A: Did she cheat on her partner?<br>B: She ______ ______ it, but the anniversary dinner had FBI-level tension.`, chunk: 'denied doing', display: 'deny doing' },
+  { prompt: `A: Did the groom admit the problem?<br>B: He ______ ______ breaking his wedding vows before the cake was even cut.`, chunk: 'confessed to breaking', display: 'confess to breaking' },
+  { prompt: `A: Why can't Nina switch off?<br>B: She's ______ ______ burning out before graduation, which is not the plot twist we ordered.`, chunk: 'worried about burning out', display: 'worry about burning out' },
+
+  { prompt: `A: Did the bakery accept the new schedule?<br>B: They ______ ______ bake freshly baked bread at 5 a.m., because sleep is apparently optional.`, chunk: 'agreed to bake', display: 'agree to bake' },
+  { prompt: `A: Will Sam eat the burnt toast?<br>B: He ______ ______ eat it and called it "a crime against breakfast".`, chunk: 'refused to eat', display: 'refuse to eat' },
+  { prompt: `A: Why is the chef holding the vegetable stock like Hamlet?<br>B: He ______ ______ chuck it out unless the texture improved.`, chunk: 'threatened to chuck', display: 'threaten to chuck' },
+  { prompt: `A: What did the cookery teacher say?<br>B: She ______ us ______ chop the onions finely, then watched us cry like Oscar winners.`, chunk: 'advised us to chop', display: 'advise sb to chop' },
+  { prompt: `A: Did the recipe mention the almonds?<br>B: It ______ me ______ soak them overnight, which feels like emotional labour for nuts.`, chunk: 'reminded me to soak', display: 'remind sb to soak' },
+  { prompt: `A: What did Wednesday say about the sauce?<br>B: She ______ us ______ burn it unless we wanted a smoky little tragedy.`, chunk: 'warned us not to burn', display: 'warn sb not to burn' },
+  { prompt: `A: Are they planning a new smoothie?<br>B: They're ______ ______ the whole mixture until it's smooth and suspiciously green.`, chunk: 'considering blending', display: 'consider blending' },
+  { prompt: `A: Did Marco add crushed garlic to the dessert?<br>B: He ______ ______ it, but the tiramisu now has emergency-garlic energy.`, chunk: 'denied adding', display: 'deny adding' },
+  { prompt: `A: Did Jess admit the chilli situation?<br>B: She ______ ______ sprinkling chilli over the cake. The guests saw their ancestors.`, chunk: 'confessed to sprinkling', display: 'confess to sprinkling' },
+  { prompt: `A: Did the chef admit the fish disaster?<br>B: He ______ ______ burning the flesh of the fish, then blamed the pan like a true professional.`, chunk: 'confessed to burning', display: 'confess to burning' },
+
+  { prompt: `A: What did the CEO admit on live TV?<br>B: She ______ ______ mishandling the commercial launch, background music and all.`, chunk: 'confessed to mishandling', display: 'confess to mishandling' },
+  { prompt: `A: Did the actor accept the remake rumour?<br>B: He ______ ______ joining the cast, then winked like a legal problem.`, chunk: 'denied joining', display: 'deny joining' },
+  { prompt: `A: What did the guide say about the landmark?<br>B: He ______ ______ visiting it before the gift shop, like a man protecting civilization.`, chunk: 'insisted on visiting', display: 'insist on visiting' },
+  { prompt: `A: What did the mechanic say about the engine?<br>B: She ______ us ______ ignore the noise on the bend. Comforting cinema.`, chunk: 'warned us not to ignore', display: 'warn sb not to ignore' },
+  { prompt: `A: What did the consultant say about the budget?<br>B: He ______ ______ using a low-budget venue and calling it "intimate".`, chunk: 'suggested using', display: 'suggest using' },
+  { prompt: `A: Did the villain make a legal threat?<br>B: He ______ ______ sue unless everyone respected the cape.`, chunk: 'threatened to sue', display: 'threaten to sue' },
+  { prompt: `A: Can you picture this as a box-office hit?<br>B: I can ______ ______ audiences being glued to it, mostly out of concern.`, chunk: 'imagine seeing', display: 'imagine seeing' },
+  { prompt: `A: Why is the nurse staring at the peanuts?<br>B: She ______ me ______ eat even one after that allergic reaction.`, chunk: 'warned me not to eat', display: 'warn sb not to eat' },
+  { prompt: `A: What did the therapist say about the workload?<br>B: She ______ ______ reducing it before I worry about worrying professionally.`, chunk: 'suggested reducing', display: 'suggest reducing' },
+  { prompt: `A: Did the politician accept the corruption story?<br>B: He ______ ______ damaging his reputation. The internet brought receipts.`, chunk: 'denied damaging', display: 'deny damaging' },
+
+  { prompt: `A: Did the startup approve the commercial product?<br>B: They ______ ______ launch it, even though the catchy slogan sounds like a threat.`, chunk: 'agreed to launch', display: 'agree to launch' },
+  { prompt: `A: Will the mayor say sorry for the widespread panic?<br>B: She ______ ______ apologize and called it "community cardio".`, chunk: 'refused to apologize', display: 'refuse to apologize' },
+  { prompt: `A: Why is Gandalf in the boardroom?<br>B: He ______ the company ______ rethink its policy before it became a crime against humanity.`, chunk: 'urged the company to rethink', display: 'urge sb to rethink' },
+  { prompt: `A: What did HR do after the food waste scandal?<br>B: They ______ staff ______ report waste instead of building a spreadsheet shrine.`, chunk: 'encouraged staff to report', display: 'encourage sb to report' },
+  { prompt: `A: Did the bank clerk ask for ID?<br>B: She ______ me ______ show identification before withdrawing my emergency pizza fund.`, chunk: 'reminded me to show', display: 'remind sb to show' },
+  { prompt: `A: What did the finance teacher say?<br>B: He ______ them ______ get into debt for a big-budget gaming chair.`, chunk: 'advised them not to get', display: 'advise sb not to get' },
+  { prompt: `A: Did Tony take part in the fraud?<br>B: He ______ ______ involved, while standing next to a device labelled "Definitely Not Fraud".`, chunk: 'denied being', display: 'deny being' },
+  { prompt: `A: Did the chef admit the shortcut?<br>B: He ______ ______ cutting corners with the vegetable stock. Gordon Ramsay appeared spiritually.`, chunk: 'confessed to cutting', display: 'confess to cutting' },
+  { prompt: `A: Why did the brand post a black square and a tiny sorry?<br>B: They ______ ______ selling fake goods after the customers burst into tears.`, chunk: 'apologized for selling', display: 'apologize for selling' },
+  { prompt: `A: What did the company say after the scandal?<br>B: They ______ ______ hiding the truth and serving coriander ice cream to innocent people.`, chunk: 'denied hiding', display: 'deny hiding' }
+];
+
+const disappearPackSize = 10;
+const disappearPacks = [
+  { letter: 'A', title: 'Entertainment: gripping, weird, big-budget chaos' },
+  { letter: 'B', title: 'City + travel vibes: landmarks, venues, dodgy transport' },
+  { letter: 'C', title: 'Things + socialising: tools, parties, tiny disasters' },
+  { letter: 'D', title: 'Society + crime: controversy, fraud, reputation damage' },
+  { letter: 'E', title: 'Fitness + careers: stamina, notice, burnout energy' },
+  { letter: 'F', title: 'Money + transport: overdrafts, deposits, small print' },
+  { letter: 'G', title: 'Health + life events: anxiety, allergies, vows, workload' },
+  { letter: 'H', title: 'Food: bake, blend, soak, sprinkle, panic gently' },
+  { letter: 'I', title: 'Mixed recall: same verbs, no pattern hints' },
+  { letter: 'J', title: 'Final boss: mixed Outcomes collocations + movie nonsense' }
+];
+
+let disappearState = {};
+
+function getDisappearPackRange(packIndex) {
+  const start = packIndex * disappearPackSize;
+  const end = Math.min(start + disappearPackSize, disappearData.length);
+  return { start, end };
+}
+
+function getVerbLabel(chunk) {
+  const first = normalize(chunk).split(' ')[0];
+  const labels = {
+    agreed: 'agree',
+    agree: 'agree',
+    intends: 'intend',
+    intended: 'intend',
+    intend: 'intend',
+    refused: 'refuse',
+    refuse: 'refuse',
+    threatened: 'threaten',
+    threaten: 'threaten',
+    advised: 'advise',
+    advise: 'advise',
+    encouraged: 'encourage',
+    encourage: 'encourage',
+    reminded: 'remind',
+    remind: 'remind',
+    warned: 'warn',
+    warn: 'warn',
+    urged: 'urge',
+    urge: 'urge',
+    considering: 'consider',
+    considered: 'consider',
+    consider: 'consider',
+    denied: 'deny',
+    deny: 'deny',
+    imagine: 'imagine',
+    imagined: 'imagine',
+    suggested: 'suggest',
+    suggest: 'suggest',
+    apologized: 'apologize',
+    apologised: 'apologize',
+    apologize: 'apologize',
+    confessed: 'confess',
+    confess: 'confess',
+    insisted: 'insist',
+    insists: 'insist',
+    insist: 'insist',
+    worried: 'worry',
+    worry: 'worry'
+  };
+  return labels[first] || first;
+}
+
+function updateDisappearPackMeta(packIndex) {
+  const { start, end } = getDisappearPackRange(packIndex);
+  const pack = disappearPacks[packIndex];
+  const cleared = Array.from({ length: end - start }, (_, offset) => start + offset).filter(i => disappearState[i]).length;
+  document.getElementById(`disappear-pack-meta-${packIndex}`).textContent = `Exercise ${pack.letter}: ${pack.title} (${start + 1}-${end}). Cleared: ${cleared}/${end - start}.`;
+}
+
+function renderDisappearPack(packIndex) {
+  const { start, end } = getDisappearPackRange(packIndex);
+  const screen = document.getElementById(`chunkScreen-${packIndex}`);
+  screen.innerHTML = '';
+  for (let i = start; i < end; i++) {
+    const d = disappearData[i];
+    const tag = document.createElement('span');
+    tag.className = 'chunk-tag' + (disappearState[i] ? ' hidden' : '');
+    tag.id = 'chunk-' + i;
+    tag.textContent = getVerbLabel(d.chunk);
+    screen.appendChild(tag);
+    if (typeof disappearState[i] === 'undefined') disappearState[i] = false;
+  }
+
+  const container = document.getElementById(`disappearExercise-${packIndex}`);
+  container.innerHTML = '';
+  for (let i = start; i < end; i++) {
+    const d = disappearData[i];
+    const div = document.createElement('div');
+    div.className = 'ex-item';
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span class="ex-num" style="background:var(--green)">${i - start + 1}</span>
+        <div style="flex:1">
+          <div class="ex-prompt">${d.prompt}</div>
+          <div class="input-row">
+            <input type="text" id="dis-input-${i}" placeholder="Type the chunk..." autocomplete="off">
+            <button class="btn btn-check" onclick="checkDisappear(${i})">✓</button>
+          </div>
+          <div class="answer-reveal" id="dis-answer-${i}"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  }
+
+  updateDisappearPackMeta(packIndex);
+}
+
+function buildDisappear() {
+  const host = document.getElementById('disappearExercises');
+  host.innerHTML = '';
+  disappearPacks.forEach((pack, packIndex) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h3>Exercise ${pack.letter}</h3>
+      <div class="meta" id="disappear-pack-meta-${packIndex}"></div>
+      <div class="chunk-screen" id="chunkScreen-${packIndex}"></div>
+      <div id="disappearExercise-${packIndex}"></div>
+      <div class="footer-actions">
+        <button class="btn btn-reset" onclick="resetDisappearPack(${packIndex})">↺ Reset Exercise</button>
+        <button class="btn btn-next" onclick="randomDisappear(${packIndex})">🎲 Random Item</button>
+      </div>`;
+    host.appendChild(card);
+    renderDisappearPack(packIndex);
+  });
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function checkDisappear(i) {
+  const input = document.getElementById('dis-input-' + i);
+  const reveal = document.getElementById('dis-answer-' + i);
+  const val = normalize(input.value);
+  const target = normalize(disappearData[i].chunk);
+  const altTargets = [target, target.replace('someone', 'sb'), target.replace('sb', 'someone')];
+
+  const keyWords = target.split(' ');
+  const matchCount = keyWords.filter(w => val.includes(w)).length;
+  const isClose = matchCount >= keyWords.length - 1 && val.length > 3;
+
+  if (altTargets.includes(val) || isClose) {
+    input.className = 'correct';
+    input.classList.add('correct');
+    reveal.className = 'answer-reveal show ok';
+    reveal.textContent = '✓ ' + disappearData[i].chunk;
+    document.getElementById('chunk-' + i).classList.add('hidden');
+    disappearState[i] = true;
+    updateDisappearPackMeta(Math.floor(i / disappearPackSize));
+  } else {
+    input.classList.add('wrong');
+    reveal.className = 'answer-reveal show no';
+    reveal.textContent = '✗ Expected: ' + disappearData[i].chunk;
+  }
+}
+
+function resetDisappear() {
+  disappearState = {};
+  buildDisappear();
+}
+
+function resetDisappearPack(packIndex) {
+  const { start, end } = getDisappearPackRange(packIndex);
+  for (let i = start; i < end; i++) disappearState[i] = false;
+  renderDisappearPack(packIndex);
+}
+
+function randomDisappear(packIndex) {
+  const { start, end } = getDisappearPackRange(packIndex);
+  const remaining = Array.from({ length: end - start }, (_, offset) => start + offset).filter(i => !disappearState[i]);
+  if (remaining.length === 0) { alert('This exercise is cleared! 🎉'); return; }
+  const ri = remaining[Math.floor(Math.random() * remaining.length)];
+  const el = document.getElementById('dis-input-' + ri);
+  el.focus();
+  el.parentElement.parentElement.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  el.style.boxShadow = '0 0 0 3px rgba(42,125,79,0.3)';
+  setTimeout(() => el.style.boxShadow = '', 1500);
+}
+
+const wrongData = [
+  { wrong: 'The company denied to use forged labels.', correct: 'denied using', key: 'denied using forged labels' },
+  { wrong: 'The experts urged to rethink the policy.', correct: 'urged them to rethink', key: 'urged them to rethink' },
+  { wrong: 'He insisted to make the pizza from scratch.', correct: 'insisted on making', key: 'insisted on making' },
+  { wrong: 'They threatened suing the journalist.', correct: 'threatened to sue', key: 'threatened to sue' },
+  { wrong: 'I suggest to try the plant-based burger.', correct: 'suggest trying', key: 'suggest trying' },
+  { wrong: 'She apologized to arrive late at the meeting.', correct: 'apologized for arriving', key: 'apologized for arriving' },
+  { wrong: 'He confessed stealing the recipe.', correct: 'confessed to stealing', key: 'confessed to stealing' },
+  { wrong: 'The CEO refused closing the factory.', correct: 'refused to close', key: 'refused to close' },
+  { wrong: 'We encouraged them studying harder.', correct: 'encouraged them to study', key: 'encouraged them to study' },
+  { wrong: 'She warned to not eat the leftovers.', correct: 'warned them not to eat', key: 'warned them not to eat' }
+];
+
+let wrongScore = 0;
+
+function buildWrong() {
+  const container = document.getElementById('wrongExercise');
+  container.innerHTML = '';
+  wrongData.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-item';
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span class="ex-num" style="background:var(--red)">${i+1}</span>
+        <div style="flex:1">
+          <div class="ex-prompt">"${d.wrong}"</div>
+          <div class="input-row">
+            <input type="text" id="wrong-input-${i}" placeholder="You're wrong! It's…" autocomplete="off">
+          </div>
+          <div class="answer-reveal" id="wrong-answer-${i}"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function checkAllWrong() {
+  wrongScore = 0;
+  wrongData.forEach((d, i) => {
+    const input = document.getElementById('wrong-input-' + i);
+    const reveal = document.getElementById('wrong-answer-' + i);
+    const val = normalize(input.value);
+    const target = normalize(d.correct);
+    const keyWords = target.split(' ').filter(w => w.length > 2);
+    const matchCount = keyWords.filter(w => val.includes(w)).length;
+
+    if (matchCount >= keyWords.length - 1 && val.length > 3) {
+      input.className = ''; input.classList.add('correct');
+      reveal.className = 'answer-reveal show ok';
+      reveal.textContent = '✓ ' + d.correct;
+      wrongScore++;
+    } else {
+      input.className = ''; input.classList.add('wrong');
+      reveal.className = 'answer-reveal show no';
+      reveal.textContent = '✗ ' + d.correct;
+    }
+  });
+  document.getElementById('wrongScore').style.display = 'flex';
+  document.getElementById('wrongScoreNum').textContent = wrongScore;
+}
+
+function resetWrong() {
+  wrongScore = 0;
+  document.getElementById('wrongScore').style.display = 'none';
+  buildWrong();
+}
+
+const sprintData = [
+  { verb: 'Deny...', ctx: '(fake wine)', answer: 'Deny selling fake wine' },
+  { verb: 'Refuse...', ctx: '(eat leftovers)', answer: 'Refuse to eat leftovers' },
+  { verb: 'Urge...', ctx: '(public / stay calm)', answer: 'Urge the public to stay calm' },
+  { verb: 'Apologize...', ctx: '(be late)', answer: 'Apologize for being late' },
+  { verb: 'Agree...', ctx: '(sell the stake)', answer: 'Agree to sell the stake' },
+  { verb: 'Insist...', ctx: '(use fresh ingredients)', answer: 'Insist on using fresh ingredients' },
+  { verb: 'Threaten...', ctx: '(close the restaurant)', answer: 'Threaten to close the restaurant' },
+  { verb: 'Suggest...', ctx: '(try the new menu)', answer: 'Suggest trying the new menu' },
+  { verb: 'Warn...', ctx: '(customers / not eat raw fish)', answer: 'Warn customers not to eat raw fish' },
+  { verb: 'Confess...', ctx: '(cut corners)', answer: 'Confess to cutting corners' }
+];
+
+let sprintTimerInterval = null;
+let sprintRunning = false;
+let sprintScore = 0;
+
+function buildSprint() {
+  const container = document.getElementById('sprintExercise');
+  container.innerHTML = '';
+  sprintData.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-item';
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span class="ex-num" style="background:var(--blue)">${i+1}</span>
+        <div style="flex:1">
+          <div class="ex-prompt"><b>${d.verb}</b> ${d.ctx}</div>
+          <div class="input-row">
+            <input type="text" id="sprint-input-${i}" placeholder="Full phrase…" autocomplete="off">
+          </div>
+          <div class="answer-reveal" id="sprint-answer-${i}"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleSprintTimer() {
+  const btn = document.getElementById('sprintTimerBtn');
+  if (sprintRunning) {
+    clearInterval(sprintTimerInterval);
+    sprintRunning = false;
+    btn.textContent = '▶ Start Timer';
+    document.getElementById('sprintTimer').textContent = '3.0';
+  } else {
+    sprintRunning = true;
+    btn.textContent = '⏸ Pause';
+    let t = 3.0;
+    document.getElementById('sprintTimer').textContent = t.toFixed(1);
+    sprintTimerInterval = setInterval(() => {
+      t -= 0.1;
+      if (t <= 0) { t = 3.0; document.getElementById('sprintTimer').style.color = 'var(--red)'; setTimeout(() => document.getElementById('sprintTimer').style.color = 'var(--yellow)', 300); }
+      document.getElementById('sprintTimer').textContent = t.toFixed(1);
+    }, 100);
+  }
+}
+
+function checkAllSprint() {
+  if (sprintRunning) toggleSprintTimer();
+  sprintScore = 0;
+  sprintData.forEach((d, i) => {
+    const input = document.getElementById('sprint-input-' + i);
+    const reveal = document.getElementById('sprint-answer-' + i);
+    const val = normalize(input.value);
+    const target = normalize(d.answer);
+    const keyWords = target.split(' ').filter(w => w.length > 2);
+    const matchCount = keyWords.filter(w => val.includes(w)).length;
+
+    if (matchCount >= keyWords.length - 1 && val.length > 5) {
+      input.className = ''; input.classList.add('correct');
+      reveal.className = 'answer-reveal show ok';
+      reveal.textContent = '✓ ' + d.answer;
+      sprintScore++;
+    } else {
+      input.className = ''; input.classList.add('wrong');
+      reveal.className = 'answer-reveal show no';
+      reveal.textContent = '✗ ' + d.answer;
+    }
+  });
+  document.getElementById('sprintScore').style.display = 'flex';
+  document.getElementById('sprintScoreNum').textContent = sprintScore;
+}
+
+function resetSprint() {
+  if (sprintRunning) toggleSprintTimer();
+  sprintScore = 0;
+  document.getElementById('sprintScore').style.display = 'none';
+  buildSprint();
+}
+
+const oddOneData = [
+  {
+    title: 'Group 1: Which verb needs -ing (not "to do")?',
+    words: ['refuse', 'agree', 'threaten', 'deny'],
+    answer: 3,
+    explain: 'DENY needs -ing (deny doing). The others use to do.'
+  },
+  {
+    title: 'Group 2: Which verb needs an OBJECT + to do?',
+    words: ['apologize for', 'confess to', 'insist on', 'urge'],
+    answer: 3,
+    explain: 'URGE needs sb + to do (urge someone to do). The others use prep + -ing.'
+  },
+  {
+    title: 'Group 3: Which verb needs "to do" (not -ing)?',
+    words: ['suggest', 'imagine', 'consider', 'intend'],
+    answer: 3,
+    explain: 'INTEND needs to do (intend to do). The others take -ing.'
+  },
+  {
+    title: 'Group 4: Which verb does NOT need a preposition before -ing?',
+    words: ['apologize for', 'insist on', 'deny', 'confess to'],
+    answer: 2,
+    explain: 'DENY takes -ing directly (deny doing) — no preposition needed.'
+  },
+  {
+    title: 'Group 5: Which verb MUST have an object person?',
+    words: ['agree', 'refuse', 'encourage', 'threaten'],
+    answer: 2,
+    explain: 'ENCOURAGE needs sb (encourage someone to do). The others work without.'
+  },
+  {
+    title: 'Group 6: Which verb needs "for + -ing"?',
+    words: ['deny', 'suggest', 'apologize', 'consider'],
+    answer: 2,
+    explain: 'APOLOGIZE needs for + -ing (apologize for doing). Others take direct -ing.'
+  }
+];
+
+let oddOneScore = 0;
+
+function buildOddOne() {
+  const container = document.getElementById('oddOneExercise');
+  container.innerHTML = '';
+  oddOneData.forEach((g, gi) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div style="font-weight:600;font-size:.92em;margin-bottom:8px">${gi+1}. ${g.title}</div>
+      <div class="ooo-group" id="ooo-group-${gi}">
+        ${g.words.map((w, wi) => `<button class="ooo-btn" onclick="pickOdd(${gi},${wi})">${w}</button>`).join('')}
+      </div>
+      <div class="answer-reveal" id="ooo-answer-${gi}"></div>`;
+    container.appendChild(card);
+  });
+}
+
+function pickOdd(gi, wi) {
+  const group = document.getElementById('ooo-group-' + gi);
+  const btns = group.querySelectorAll('.ooo-btn');
+  const reveal = document.getElementById('ooo-answer-' + gi);
+
+  if (reveal.classList.contains('show')) return;
+
+  if (wi === oddOneData[gi].answer) {
+    btns[wi].classList.add('selected-correct');
+    btns.forEach((b, bi) => { if (bi !== wi) b.classList.add('dimmed'); });
+    reveal.className = 'answer-reveal show ok';
+    reveal.textContent = '✓ ' + oddOneData[gi].explain;
+    oddOneScore++;
+  } else {
+    btns[wi].classList.add('selected-wrong');
+    btns[oddOneData[gi].answer].classList.add('selected-correct');
+    btns.forEach((b, bi) => { if (bi !== wi && bi !== oddOneData[gi].answer) b.classList.add('dimmed'); });
+    reveal.className = 'answer-reveal show no';
+    reveal.textContent = '✗ ' + oddOneData[gi].explain;
+  }
+
+  document.getElementById('oddOneScore').style.display = 'flex';
+  document.getElementById('oddOneScoreNum').textContent = oddOneScore;
+}
+
+const microData = [
+  { wrong: 'I deny to do it.', correct: 'I deny doing it.' },
+  { wrong: 'I suggest you to try the new dish.', correct: 'I suggest trying the new dish.' },
+  { wrong: 'He insisted to make everything organic.', correct: 'He insisted on making everything organic.' },
+  { wrong: 'She apologized to waste so much food.', correct: 'She apologized for wasting so much food.' },
+  { wrong: 'The CEO urged to invest in green energy.', correct: 'The CEO urged investors to invest in green energy.' },
+  { wrong: 'They refused changing the recipe.', correct: 'They refused to change the recipe.' },
+  { wrong: 'He confessed stealing the secret formula.', correct: 'He confessed to stealing the secret formula.' },
+  { wrong: 'The manager threatened firing everyone.', correct: 'The manager threatened to fire everyone.' },
+  { wrong: 'She warned to not eat the sushi.', correct: 'She warned us not to eat the sushi.' },
+  { wrong: 'We encouraged them studying the report.', correct: 'We encouraged them to study the report.' }
+];
+
+let microScore = 0;
+
+function buildMicro() {
+  const container = document.getElementById('microExercise');
+  container.innerHTML = '';
+  microData.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-item';
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span class="ex-num" style="background:var(--orange)">${i+1}</span>
+        <div style="flex:1">
+          <div class="ex-prompt"><span class="mc-wrong">${d.wrong}</span></div>
+          <div class="input-row">
+            <input type="text" id="micro-input-${i}" placeholder="Correct version…" autocomplete="off">
+          </div>
+          <div class="answer-reveal" id="micro-answer-${i}"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function checkAllMicro() {
+  microScore = 0;
+  microData.forEach((d, i) => {
+    const input = document.getElementById('micro-input-' + i);
+    const reveal = document.getElementById('micro-answer-' + i);
+    const val = normalize(input.value);
+    const target = normalize(d.correct);
+    const keyWords = target.split(' ').filter(w => w.length > 2);
+    const matchCount = keyWords.filter(w => val.includes(w)).length;
+
+    if (matchCount >= keyWords.length - 2 && val.length > 8) {
+      input.className = ''; input.classList.add('correct');
+      reveal.className = 'answer-reveal show ok';
+      reveal.textContent = '✓ ' + d.correct;
+      microScore++;
+    } else {
+      input.className = ''; input.classList.add('wrong');
+      reveal.className = 'answer-reveal show no';
+      reveal.textContent = '✗ ' + d.correct;
+    }
+  });
+  document.getElementById('microScore').style.display = 'flex';
+  document.getElementById('microScoreNum').textContent = microScore;
+}
+
+function resetMicro() {
+  microScore = 0;
+  document.getElementById('microScore').style.display = 'none';
+  buildMicro();
+}
+
+buildDisappear();
+buildWrong();
+buildSprint();
+buildOddOne();
+buildMicro();
+</script>
+</body>
+</html>
